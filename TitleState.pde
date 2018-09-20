@@ -6,8 +6,8 @@ class TitleState extends State {
   }
 
   State decideState() {
-    if (keyPressed && key == 's') { // if 'z' key is pressed
-      return new IntroState(); // start game
+    if (keyPressed && key == 's') { 
+      return new IntroState();
     }
     return this;
   }

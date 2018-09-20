@@ -23,24 +23,29 @@ class ExpressionState extends State {
     background(200, 0, 0);
     image(context.rgbImage(), 0, 0);
     
-    text("Show your face me", width * 0.5, height * 0.5);
+    
     //text("Press 'h' to restart.", width * 0.5, height * 0.7);
     
     
     
     int countdown = millis() - baseTime;
     if(countdown < 6000){
+      text("Show your face me", width * 0.5, height * 0.5);
       text("Take your picture",width * 0.5, height * 0.7);
     }else if(countdown < 7000){
+      text("Show your face me", width * 0.5, height * 0.5);
       text("countdown : " + str(3),width * 0.5, height * 0.7);
     }else if (countdown < 8000){
+      text("Show your face me", width * 0.5, height * 0.5);
       text("countdown : " + str(2),width * 0.5, height * 0.7);
     }else if (countdown < 9000){
+      text("Show your face me", width * 0.5, height * 0.5);
       text("countdown : " + str(1),width * 0.5, height * 0.7);
     }else if (countdown > 9000 && countdown < 11000){
-      text("Shot!!",width * 0.5, height * 0.7);
+      //text("Shot!!",width * 0.5, height * 0.7);
       playerPhoto.play();
     }else if (countdown > 11000){
+      text("Thank you",width * 0.5, height * 0.5);
       text("Save your face",width * 0.5, height * 0.7);
     }
     

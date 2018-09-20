@@ -6,9 +6,11 @@ class WaitState extends State {
   }
   
   void drawState() {
+    fill(255);
     text("Wait!", width * 0.5, height * 0.5);
     playerWait.play();
     if (t > 3) {
+      fill(255);
       text("Press 'z' to restart.", width * 0.5, height * 0.7);
     }
   }

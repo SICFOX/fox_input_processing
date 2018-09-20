@@ -3,6 +3,8 @@ class HandState extends State {
   PVector com;
   PVector com2d;
   color[] userClr;
+  int baseTime;
+  int saved_size;
   
   
   HandState() {
@@ -18,16 +20,19 @@ class HandState extends State {
     com = new PVector();                                   
     com2d = new PVector();
     background(200,0,0);
+    baseTime = millis();
   }
   
   
   void drawState() {
     playerHand.play();
-    text("Plase hand gesture", width * 0.5, height * 0.5);
-    text("Press 'w' to restart.", width * 0.5, height * 0.7);
+    
     
     context.update();
     image(context.userImage(),0,0);
+    fill(255);
+    text("Please hand gesture", width * 0.5, height * 0.5);
+    
     
     //print(context.rightHandPos.x);
     
@@ -36,9 +41,32 @@ class HandState extends State {
       if(context.isTrackingSkeleton(userList[i])){
         stroke(userClr[ (userList[i] - 1) % userClr.length ] );
         float diff = drawSkeleton(userList[i]);
-        println("Size of Cotton Candy = ", int(diff/10), "cm");
-      }      
-      
+        int cm_diff = int(diff/10);
+        println("Size of Cotton Candy = ", str(cm_diff), "cm");
+        fill(255);
+        if (cm_diff > 0) {
+          int countdown = millis() - baseTime;
+          if(countdown < 11000){
+            text("cototn candy size : " + str(cm_diff)+"cm", width * 0.5, height * 0.7);
+          //text("countdown : " + str(3),width * 0.5, height * 0.9);
+          }else if(countdown < 12000){
+            text("cototn candy size : " + str(cm_diff)+"cm", width * 0.5, height * 0.7);
+            text("countdown : " + str(3),width * 0.5, height * 0.9);
+          }else if(countdown < 13000){
+            text("cototn candy size : " + str(cm_diff)+"cm", width * 0.5, height * 0.7);
+            text("countdown : " + str(2),width * 0.5, height * 0.9);
+          }else if(countdown < 14000){
+            text("cototn candy size : " + str(cm_diff)+"cm", width * 0.5, height * 0.7);
+            text("countdown : " + str(1),width * 0.5, height * 0.9);
+            saved_size = cm_diff;
+          }else if(countdown > 14000){
+            text("Thank you", width * 0.5, height * 0.7);
+            text("Save size : " + str(saved_size)+"cm", width * 0.5, height * 0.9);
+          }
+         }
+        }
+     
+
     // draw the center of mass
       if(context.getCoM(userList[i],com)){
         context.convertRealWorldToProjective(com,com2d);
@@ -53,9 +81,10 @@ class HandState extends State {
         fill(0,255,100);
         text(Integer.toString(userList[i]),com2d.x,com2d.y);
       }
-    }    
+    }   
+} 
     
-  }
+
   
  
   State decideState() {
