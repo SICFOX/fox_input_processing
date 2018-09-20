@@ -7,6 +7,7 @@ class ExpressionState extends State {
   int shoot;
   int baseTime;
   String received;
+  boolean nextState;
   
   ExpressionState() {
     playerExpression = minim.loadFile("face_expression.mp3");
@@ -14,6 +15,7 @@ class ExpressionState extends State {
     shot_count = 1;
     shoot = 0;
     baseTime = millis();
+    nextState = false;
   }
   
   void drawState() {
@@ -54,6 +56,8 @@ class ExpressionState extends State {
         String s = "savefaceimage";
         client.write(s);
         expressionFlag = false;
+        //delay(3000);
+        nextState = true;
       }
 //      received = clientEvent();
     }
@@ -78,7 +82,7 @@ class ExpressionState extends State {
   }
 
   State decideState() {
-    if (keyPressed && key == 'h') { // if ellapsed time is larger than
+    if (nextState) { // if ellapsed time is larger than
       playerExpression.close();
       playerPhoto.close() ;
       return new HandState(); // go to ending

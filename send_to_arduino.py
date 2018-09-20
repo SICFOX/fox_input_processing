@@ -25,11 +25,11 @@ cotton_size_str = 0
 arduino_control = ""
 megapi_control = ""
 
-#Serial Port
-#Arduino
-ser = serial.Serial('/dev/cu.usbmodem1411', 9600)
-#MegaPi
-ser2 = serial.Serial('/dev/cu.wchusbserial1420', 9600)
+# #Serial Port
+# #Arduino
+# ser = serial.Serial('/dev/cu.usbmodem1411', 9600)
+# #MegaPi
+# ser2 = serial.Serial('/dev/cu.wchusbserial1420', 9600)
 
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:

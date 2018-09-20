@@ -5,6 +5,7 @@ class HandState extends State {
   color[] userClr;
   int baseTime;
   int saved_size;
+  boolean nextState;
   
   
   HandState() {
@@ -21,6 +22,7 @@ class HandState extends State {
     com2d = new PVector();
     background(200,0,0);
     baseTime = millis();
+    nextState = false;
   }
   
   
@@ -67,6 +69,8 @@ class HandState extends State {
               String s = str(saved_size);
               client.write(s);
               handFlag = false;
+              //delay(3000);
+              nextState = true;
             }
           }
          }
@@ -94,7 +98,7 @@ class HandState extends State {
   
  
   State decideState() {
-    if (keyPressed && key == 'w') {
+    if (nextState) {
       playerHand.close() ;
       return new WaitState();
     }
