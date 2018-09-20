@@ -25,11 +25,11 @@ cotton_size_str = 0
 arduino_control = ""
 megapi_control = ""
 
-# #Serial Port
-# #Arduino
-# ser = serial.Serial('/dev/cu.usbmodem1411', 9600)
-# #MegaPi
-# ser2 = serial.Serial('/dev/cu.wchusbserial1420', 9600)
+#Serial Port
+#Arduino
+# ser = serial.Serial('/dev/cu.usbmodem1421', 9600)
+#MegaPi
+ser2 = serial.Serial('/dev/cu.wchusbserial1420', 9600)
 
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -126,23 +126,24 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                     print(megapi_control)
 
 
-                    #シリアル通信
                     # sleep(5)
                     # print(arduino_control)
                     # ser.write(arduino_control)
-                    # if cotton_size >= 0 and cotton_size <= 30:
-                    #     #small size
-                    #     sleep(10)
-                    # elif cotton_size > 30 and cotton_size <= 50:
-                    #     #midium size
-                    #     sleep(13)
-                    # else:
-                    #     #big size
-                    #     sleep(15)
-                    #     print(megapi_control)
-                    # ser2.write(megapi_control)
-                    #     sleep(5)
-                    # conn.sendall(b'3')
+
+                    if cotton_size >= 0 and cotton_size <= 30:
+                        #small size
+                        sleep(10)
+                    elif cotton_size > 30 and cotton_size <= 50:
+                        #midium size
+                        sleep(13)
+                    else:
+                        #big size
+                        sleep(15)
+                    print(megapi_control)
+                    ser2.write(megapi_control)
+                    sleep(5)
+
+                    conn.sendall(b'3')
 
                 # if data == b"savecandysize":
                 else:
@@ -154,22 +155,22 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                     print(cotton_size)
                     print(type(cotton_size))
 
-                    if cotton_size >= 0 and cotton_size <= 25:
-                        #str(' Times of Electric current ')+'e'
-                        arduino_input[1] = str('20')+'e'
-                    elif cotton_size > 25 and cotton_size <= 50:
-                        arduino_input[1] = str('35')+'e'
-                    elif cotton_size > 50 and cotton_size <= 70:
-                        arduino_input[1] = str('45')+'e'
-                    elif cotton_size > 70 and cotton_size <= 100:
-                        arduino_input[1] = str('60')+'e'
+                    #str(' Times of Electric current ')+'e'
+                    if cotton_size >= 0 and cotton_size <= 15:
+                        arduino_input[1] = str('2')+'e'
+                    elif cotton_size > 15 and cotton_size <= 25:
+                        arduino_input[1] = str('5')+'e'
+                    elif cotton_size > 25 and cotton_size <= 40:
+                        arduino_input[1] = str('10')+'e'
+                    elif cotton_size > 40 and cotton_size <= 50:
+                        arduino_input[1] = str('15')+'e'
                     else:
-                        arduino_input[1] = str('65')+'e'
+                        arduino_input[1] = str('20')+'e'
 
                         #MegaPi
-                    if cotton_size >= 0 and cotton_size <= 30:
+                    if cotton_size >= 0 and cotton_size <= 25:
                         megapi_input[0] = str('1')
-                    elif cotton_size > 30 and cotton_size <= 60:
+                    elif cotton_size > 25 and cotton_size <= 50:
                         megapi_input[0] = str('2')
                     else:
                         megapi_input[0] = str('3')
