@@ -9,6 +9,11 @@ class WaitState extends State {
     fill(255);
     text("Wait!", width * 0.5, height * 0.5);
     playerWait.play();
+    if (waitFlag == true){
+      String s = "senddata";
+      client.write(s);
+      waitFlag = false;
+    }
     if (t > 3) {
       fill(255);
       text("Press 'z' to restart.", width * 0.5, height * 0.7);

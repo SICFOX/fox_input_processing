@@ -7,18 +7,31 @@ import ddf.minim.effects.*;
 
 import SimpleOpenNI.*;
 
+import processing.net.*;
+
 Minim minim;
 State state;
 SimpleOpenNI  context;
 SimpleOpenNI  context2;
 
+boolean expressionFlag;
+boolean handFlag;
+boolean waitFlag;
+
+Client client;
+
 void setup() {
+  client = new Client(this, "127.0.0.1", 5555);
   minim = new Minim(this);
   size(640, 480);
   textSize(32);
   textAlign(CENTER);
   fill(255);
   state = new TitleState();
+  
+  expressionFlag = true;
+  handFlag = true;
+  waitFlag = true;
 
   context = new SimpleOpenNI(this);
   if (context.isInit() == false) {
@@ -85,3 +98,25 @@ void onNewUser(SimpleOpenNI curContext, int userId) {
   curContext.startTrackingSkeleton(userId);
 }
 
+//サーバーからデータを受け取るときに呼ばれるコールバック関数
+void clientEvent(Client c) {
+  String s = c.readString();
+  if (s != null) {
+    println("client receieved: " + s);
+    //println((char)s);
+    print(unbinary(s));
+    if (unbinary(s) == 1){
+      expressionFlag = false;
+      waitFlag = true;
+    }
+    if (unbinary(s) == 2){
+      handFlag = false;
+    }
+    if (unbinary(s) == 3){
+      waitFlag = false;
+      expressionFlag = true;
+      handFlag = true;
+      
+    }
+  }
+}

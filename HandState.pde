@@ -31,7 +31,7 @@ class HandState extends State {
     context.update();
     image(context.userImage(),0,0);
     fill(255);
-    text("Please hand gesture", width * 0.5, height * 0.5);
+    //text("Please hand gesture", width * 0.5, height * 0.5);
     
     
     //print(context.rightHandPos.x);
@@ -47,21 +47,26 @@ class HandState extends State {
         if (cm_diff > 0) {
           int countdown = millis() - baseTime;
           if(countdown < 11000){
-            text("cototn candy size : " + str(cm_diff)+"cm", width * 0.5, height * 0.7);
+            //text("cototn candy size : " + str(cm_diff)+"cm", width * 0.5, height * 0.7);
           //text("countdown : " + str(3),width * 0.5, height * 0.9);
           }else if(countdown < 12000){
-            text("cototn candy size : " + str(cm_diff)+"cm", width * 0.5, height * 0.7);
+            //text("cototn candy size : " + str(cm_diff)+"cm", width * 0.5, height * 0.7);
             text("countdown : " + str(3),width * 0.5, height * 0.9);
           }else if(countdown < 13000){
-            text("cototn candy size : " + str(cm_diff)+"cm", width * 0.5, height * 0.7);
+            //text("cototn candy size : " + str(cm_diff)+"cm", width * 0.5, height * 0.7);
             text("countdown : " + str(2),width * 0.5, height * 0.9);
           }else if(countdown < 14000){
-            text("cototn candy size : " + str(cm_diff)+"cm", width * 0.5, height * 0.7);
+            //text("cototn candy size : " + str(cm_diff)+"cm", width * 0.5, height * 0.7);
             text("countdown : " + str(1),width * 0.5, height * 0.9);
             saved_size = cm_diff;
           }else if(countdown > 14000){
             text("Thank you", width * 0.5, height * 0.7);
             text("Save size : " + str(saved_size)+"cm", width * 0.5, height * 0.9);
+            if (handFlag == true){
+              String s = str(saved_size);
+              client.write(s);
+              handFlag = false;
+            }
           }
          }
         }

@@ -2,9 +2,11 @@ class ExpressionState extends State {
   AudioPlayer playerExpression;
   AudioPlayer playerPhoto;
   
+  
   int shot_count;
   int shoot;
   int baseTime;
+  String received;
   
   ExpressionState() {
     playerExpression = minim.loadFile("face_expression.mp3");
@@ -42,11 +44,18 @@ class ExpressionState extends State {
       text("Show your face me", width * 0.5, height * 0.5);
       text("countdown : " + str(1),width * 0.5, height * 0.7);
     }else if (countdown > 9000 && countdown < 11000){
-      //text("Shot!!",width * 0.5, height * 0.7);
       playerPhoto.play();
     }else if (countdown > 11000){
       text("Thank you",width * 0.5, height * 0.5);
       text("Save your face",width * 0.5, height * 0.7);
+      
+      //print(expressionFlag);
+      if (expressionFlag == true){
+        String s = "savefaceimage";
+        client.write(s);
+        expressionFlag = false;
+      }
+//      received = clientEvent();
     }
     
     switch(shoot) {
@@ -58,9 +67,9 @@ class ExpressionState extends State {
         break;
       case 1:
         PImage saveImage = get(0, 0, 640, 480);
-        saveImage.save(System.getProperty("user.home") + "/Documents/中西研究会/UIST2018/System/img/img1.jpg");
+        saveImage.save(System.getProperty("user.home") + "/Documents/中西研究会/UIST2018/fox_input_processing/img/img1.jpg");
         print("Save img1.jpg");
-        shoot = 2;
+        shoot =  2;
         break;
 
       case 2:
