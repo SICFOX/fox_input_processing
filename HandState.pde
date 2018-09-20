@@ -6,7 +6,6 @@ class HandState extends State {
   
   
   HandState() {
-    //音声の読み込み
     playerHand = minim.loadFile("hand_sign.mp3");
     userClr = new color[]{ 
       color(255,0,0),
@@ -30,11 +29,14 @@ class HandState extends State {
     context.update();
     image(context.userImage(),0,0);
     
+    //print(context.rightHandPos.x);
+    
     int[] userList = context.getUsers();
     for(int i=0;i<userList.length;i++){
       if(context.isTrackingSkeleton(userList[i])){
         stroke(userClr[ (userList[i] - 1) % userClr.length ] );
-        drawSkeleton(userList[i]);
+        float diff = drawSkeleton(userList[i]);
+        println("Size of Cotton Candy = ", int(diff/10), "cm");
       }      
       
     // draw the center of mass

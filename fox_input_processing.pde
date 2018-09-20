@@ -43,7 +43,7 @@ void draw() {
 }
 
 // draw the skeleton with the selected joints
-void drawSkeleton(int userId) {
+float drawSkeleton(int userId) {
   // to get the 3d joint data
   PVector rightHandPos = new PVector();
   PVector leftHandPos = new PVector();
@@ -51,7 +51,7 @@ void drawSkeleton(int userId) {
   context.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_LEFT_HAND, leftHandPos);
   //  println(rightHandPos.x,leftHandPos.x);
   float diff = rightHandPos.x - leftHandPos.x;
-  println("Size of Cotton Candy = ", int(diff/10), "cm");
+  //println("Size of Cotton Candy = ", int(diff/10), "cm");
   //  float depth = (rightHandPos.z + leftHandPos.z)/2;
   //  println(int(depth));
 
@@ -75,6 +75,8 @@ void drawSkeleton(int userId) {
   context.drawLimb(userId, SimpleOpenNI.SKEL_TORSO, SimpleOpenNI.SKEL_RIGHT_HIP);
   context.drawLimb(userId, SimpleOpenNI.SKEL_RIGHT_HIP, SimpleOpenNI.SKEL_RIGHT_KNEE);
   context.drawLimb(userId, SimpleOpenNI.SKEL_RIGHT_KNEE, SimpleOpenNI.SKEL_RIGHT_FOOT);
+  
+  return diff;
 }
 
 void onNewUser(SimpleOpenNI curContext, int userId) {
