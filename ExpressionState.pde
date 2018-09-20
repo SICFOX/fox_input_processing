@@ -24,7 +24,7 @@ class ExpressionState extends State {
     
     
     context.update();
-    background(200, 0, 0);
+    background(0,183,241);
     image(context.rgbImage(), 0, 0);
     
     

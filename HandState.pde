@@ -20,7 +20,7 @@ class HandState extends State {
     };
     com = new PVector();                                   
     com2d = new PVector();
-    background(200,0,0);
+    background(0,183,241);
     baseTime = millis();
     nextState = false;
   }

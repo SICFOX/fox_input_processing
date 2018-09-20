@@ -51,7 +51,7 @@ void setup() {
 }
 
 void draw() {
-  background(0);
+  background(0,183,241);
   state = state.doState();
 }
 
