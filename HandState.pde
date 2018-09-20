@@ -98,6 +98,10 @@ class HandState extends State {
   
  
   State decideState() {
+    if (keyPressed && key == 'w') {
+      playerHand.close() ;
+      return new WaitState();
+    }
     if (nextState) {
       playerHand.close() ;
       return new WaitState();

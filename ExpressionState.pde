@@ -82,6 +82,11 @@ class ExpressionState extends State {
   }
 
   State decideState() {
+    if (keyPressed && key == 'h') {
+      playerExpression.close();
+      playerPhoto.close() ;
+      return new HandState();
+    }
     if (nextState) { // if ellapsed time is larger than
       playerExpression.close();
       playerPhoto.close() ;

@@ -8,7 +8,7 @@ abstract class State {
 
   State doState() {
     t = (millis() - t_start) / 1000.0;
-    text(nf(t, 1, 3)  + "sec.", width * 0.5, height * 0.9);
+    //text(nf(t, 1, 3)  + "sec.", width * 0.5, height * 0.9);
     drawState();
     return decideState();
   }

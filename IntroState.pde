@@ -11,9 +11,10 @@ class IntroState extends State {
   }
   
   void drawState() {
-    text("I'm FOX", width * 0.5, height * 0.5);
+    image(img, width * 0.3,height * 0.4-28,100,110);
+    text("I'm FOX", width * 0.6, height * 0.5);
     playerIntro.play();
-    text("Press 'e' to restart.", width * 0.5, height * 0.7);
+    //text("Press 'e' to restart.", width * 0.5, height * 0.7);
     int countdown = millis() - baseTime;
     if(countdown > 7000){
       nextState = true;
