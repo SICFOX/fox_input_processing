@@ -86,6 +86,48 @@ def vision_api():
                 #print(out[0])
     #arduino_input[0] = str(1)
 
+def size_adjustment(cotton_size):
+    if cotton_size >= 0 and cotton_size <= 15:
+        arduino_input[1] = str('2') + 'e'
+    elif cotton_size > 15 and cotton_size <= 25:
+        arduino_input[1] = str('5') + 'e'
+    elif cotton_size > 25 and cotton_size <= 40:
+        arduino_input[1] = str('10') + 'e'
+    elif cotton_size > 40 and cotton_size <= 50:
+        arduino_input[1] = str('15') + 'e'
+    else:
+        arduino_input[1] = str('20') + 'e'
+
+    # MegaPi
+    if cotton_size >= 0 and cotton_size <= 25:
+        megapi_input[0] = str('1')
+    elif cotton_size > 25 and cotton_size <= 50:
+        megapi_input[0] = str('2')
+    else:
+        megapi_input[0] = str('3')
+
+
+def send_to_arduino(arduino_control,megapi_control):
+
+    sleep(5)
+    print(arduino_control)
+    ser.write(arduino_control)
+
+    if cotton_size >= 0 and cotton_size <= 30:
+        #small size
+        sleep(10)
+    elif cotton_size > 30 and cotton_size <= 50:
+        #midium size
+        sleep(13)
+    else:
+        #big size
+        sleep(15)
+    print(megapi_control)
+    ser2.write(megapi_control)
+    sleep(5)
+
+
+
 
 if __name__ == '__main__':
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -103,70 +145,40 @@ if __name__ == '__main__':
                     data = conn.recv(1024)
                     if not data:
                         break
-                #print('data : {}, addr: {}'.format(data, addr))
+                    #print('data : {}, addr: {}'.format(data, addr))
                     if data == b"savefaceimage":
-                    # Processingから写真が撮れたかどうかが送られてくる
+                        # Processingから写真が撮れたかどうかが送られてくる
                         vision_api()
-                        print("saveimageだよ")
                         arduino_control = bytes(
                         arduino_input[0] + ',' + arduino_input[1], 'utf-8')
                         megapi_control = bytes(megapi_input[0], 'utf-8')
+                        print("saveimageだよ")
                         print(arduino_control)
                         print(megapi_control)
                         conn.sendall(b'1')
 
                     elif data == b"senddata":
-                    # Arduinoにシリアル通信
+                        # Arduinoにシリアル通信
                         print("senddataだよ")
                         print(arduino_control)
                         print(megapi_control)
 
-                        # sleep(5)
-                        # print(arduino_control)
-                        # ser.write(arduino_control)
-                        #
-                        # if cotton_size >= 0 and cotton_size <= 30:
-                        #     #small size
-                        #     sleep(10)
-                        # elif cotton_size > 30 and cotton_size <= 50:
-                        #     #midium size
-                        #     sleep(13)
-                        # else:
-                        #     #big size
-                        #     sleep(15)
-                        # print(megapi_control)
-                        # ser2.write(megapi_control)
-                        # sleep(5)
+
+                        send_to_arduino(arduino_control,megapi_control)
+
+
 
                         conn.sendall(b'3')
 
                     else:
-                    # Processingからサイズが送られてくる
+                        # Processingからサイズが送られてくる
                         cotton_size_str = data.decode()  # ここにデータを入れる
-                    # print(cotton_size_str)
+                        # print(cotton_size_str)
                         cotton_size = int(cotton_size_str)
                         print(cotton_size)
                         print("cm")
 
-                    #str(' Times of Electric current ')+'e'
-                        if cotton_size >= 0 and cotton_size <= 15:
-                            arduino_input[1] = str('2') + 'e'
-                        elif cotton_size > 15 and cotton_size <= 25:
-                            arduino_input[1] = str('5') + 'e'
-                        elif cotton_size > 25 and cotton_size <= 40:
-                            arduino_input[1] = str('10') + 'e'
-                        elif cotton_size > 40 and cotton_size <= 50:
-                            arduino_input[1] = str('15') + 'e'
-                        else:
-                            arduino_input[1] = str('20') + 'e'
-
-                        # MegaPi
-                        if cotton_size >= 0 and cotton_size <= 25:
-                            megapi_input[0] = str('1')
-                        elif cotton_size > 25 and cotton_size <= 50:
-                            megapi_input[0] = str('2')
-                        else:
-                            megapi_input[0] = str('3')
+                        size_adjustment(cotton_size)
 
                         arduino_control = bytes(
                         arduino_input[0] + ',' + arduino_input[1], 'utf-8')
