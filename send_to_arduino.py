@@ -27,7 +27,7 @@ megapi_control = ""
 
 #Serial Port
 #Arduino
-# ser = serial.Serial('/dev/cu.usbmodem1421', 9600)
+ser = serial.Serial('/dev/cu.usbmodem1421', 9600)
 #MegaPi
 ser2 = serial.Serial('/dev/cu.wchusbserial1420', 9600)
 
