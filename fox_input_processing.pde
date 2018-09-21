@@ -14,6 +14,8 @@ State state;
 SimpleOpenNI  context;
 SimpleOpenNI  context2;
 
+PImage img;
+
 boolean expressionFlag;
 boolean handFlag;
 boolean waitFlag;
@@ -24,6 +26,7 @@ void setup() {
   client = new Client(this, "127.0.0.1", 5555);
   minim = new Minim(this);
   size(640, 480);
+  //size(displayWidth, displayHeight);
   textSize(32);
   textAlign(CENTER);
   fill(255);
@@ -48,10 +51,12 @@ void setup() {
   stroke(0, 0, 255);
   strokeWeight(3);
   smooth();
+  
+  img = loadImage("Fox_logo.png");
 }
 
 void draw() {
-  background(0);
+  background(0,183,241);
   state = state.doState();
 }
 

@@ -7,7 +7,8 @@ class WaitState extends State {
   
   void drawState() {
     fill(255);
-    text("Wait!", width * 0.5, height * 0.5);
+    image(img, width * 0.2,height * 0.4-28,100,110);
+    text("Wait a minitue", width * 0.6, height * 0.5);
     playerWait.play();
     if (waitFlag == true){
       String s = "senddata";

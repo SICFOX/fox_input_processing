@@ -24,7 +24,7 @@ class ExpressionState extends State {
     
     
     context.update();
-    background(200, 0, 0);
+    background(0,183,241);
     image(context.rgbImage(), 0, 0);
     
     
@@ -71,7 +71,8 @@ class ExpressionState extends State {
         break;
       case 1:
         PImage saveImage = get(0, 0, 640, 480);
-        saveImage.save(System.getProperty("user.home") + "/Documents/中西研究会/UIST2018/fox_input_processing/img/img1.jpg");
+        //saveImage.save(System.getProperty("user.home") + "/Documents/中西研究会/UIST2018/fox_input_processing/img/img2.jpg");
+        saveImage.save("./img/img1.jpg");
         print("Save img1.jpg");
         shoot =  2;
         break;
@@ -82,6 +83,11 @@ class ExpressionState extends State {
   }
 
   State decideState() {
+    if (keyPressed && key == 'h') {
+      playerExpression.close();
+      playerPhoto.close() ;
+      return new HandState();
+    }
     if (nextState) { // if ellapsed time is larger than
       playerExpression.close();
       playerPhoto.close() ;
