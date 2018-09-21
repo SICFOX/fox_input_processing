@@ -3,6 +3,7 @@ class WaitState extends State {
   
   WaitState() {
    playerWait = minim.loadFile("wait.mp3");
+   waitFlag = true;
   }
   
   void drawState() {
