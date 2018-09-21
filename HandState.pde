@@ -23,6 +23,7 @@ class HandState extends State {
     background(0,183,241);
     baseTime = millis();
     nextState = false;
+    handFlag = true;
   }
   
   

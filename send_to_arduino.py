@@ -31,160 +31,160 @@ megapi_control = ""
 #MegaPi
 # ser2 = serial.Serial('/dev/cu.wchusbserial14210', 9600)
 
+def vision_api():
+    image_filenames = ['./img/img1.jpg']
+    img_requests = []
 
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-    # IPアドレスとポートを指定
-    s.bind(('127.0.0.1', 5555))
-    # 1 接続
-    s.listen(1)
-    # connection するまで待つ
-    while True:
-        # 誰かがアクセスしてきたら、コネクションとアドレスを入れる
-        conn, addr = s.accept()
-        with conn:
-            while True:
-                # データを受け取る
-                data = conn.recv(1024)
-                if not data:
-                    break
-                #print('data : {}, addr: {}'.format(data, addr))
-                # クライアントにデータを返す(b -> byte でないといけない)
-                if data == b"savefaceimage":
-                    #Processingから写真が撮れたかどうかが送られてくる
+    for imgname in image_filenames:
+        with open(imgname, 'rb') as f:
+            ctxt = b64encode(f.read()).decode()
+            img_requests.append({
+                'image': {'content': ctxt},
+                'features': [{
+                    'type': 'FACE_DETECTION',
+                    'maxResults': 5
+                }]
+            })
+    response = requests.post(ENDPOINT_URL,
+    data=json.dumps({"requests": img_requests}).encode(),
+    params={'key': 'AIzaSyCYzlittDbDrELqOMGn77-LYLiuplMnvgA'},
+    headers={'Content-Type': 'application/json'})
 
-                    image_filenames = ['./img/img1.jpg']
-                    img_requests = []
+    if not image_filenames:
+        print("Please specify API key and image file properly. $ python visionAPI.py image.jpg")
+    else:
+        if response.status_code != 200 or response.json().get('error'):
+            print(response.text)
+    if not response.json()['responses'][0]:
+        arduino_input[0] = str('0')
+        #print(0)
 
-                    for imgname in image_filenames:
-                        with open(imgname, 'rb') as f:
-                            ctxt = b64encode(f.read()).decode()
-                            img_requests.append({
-                                'image': {'content': ctxt},
-                                'features': [{
-                                    'type': 'FACE_DETECTION',
-                                    'maxResults': 5
-                                }]
-                            })
-                    response = requests.post(ENDPOINT_URL,
-                    data=json.dumps({"requests": img_requests}).encode(),
-                    params={'key': 'AIzaSyCYzlittDbDrELqOMGn77-LYLiuplMnvgA'},
-                    headers={'Content-Type': 'application/json'})
+    if response.json()['responses'][0]:
+        a = response.json()['responses'][0]['faceAnnotations'][0]['joyLikelihood']
+        b = response.json()['responses'][0]['faceAnnotations'][0]['sorrowLikelihood']
+        c = response.json()['responses'][0]['faceAnnotations'][0]['angerLikelihood']
+        d = response.json()['responses'][0]['faceAnnotations'][0]['surpriseLikelihood']
+        emotion = {1:a, 2:b, 3:c, 0:d}
+        print(emotion)
 
-                    if not image_filenames:
-                        print("Please specify API key and image file properly. $ python visionAPI.py image.jpg")
-                    else:
-                        if response.status_code != 200 or response.json().get('error'):
-                            print(response.text)
-                    if not response.json()['responses'][0]:
-                        arduino_input[0] = str('0')
-                        #print(0)
-
-                    if response.json()['responses'][0]:
-                        a = response.json()['responses'][0]['faceAnnotations'][0]['joyLikelihood']
-                        b = response.json()['responses'][0]['faceAnnotations'][0]['sorrowLikelihood']
-                        c = response.json()['responses'][0]['faceAnnotations'][0]['angerLikelihood']
-                        d = response.json()['responses'][0]['faceAnnotations'][0]['surpriseLikelihood']
-                        emotion = {1:a, 2:b, 3:c, 0:d}
-                        print(emotion)
-
-                        out = [key for key, value in emotion.items() if value == 'VERY_LIKELY']
-                        if not out:
-                            out2 = [key for key, value in emotion.items() if value == 'LIKELY']
-                            if not out2:
-                                out3 = [key for key, value in emotion.items() if value == 'POSSIBLE']
-                                if not out3:
-                                    arduino_input[0] = str('0')
-                                    #print(0)
-                                else:
-                                    arduino_input[0] = str(out3[0])
-                                    #print(out3[0])
-                            else:
-                                arduino_input[0] = str(out2[0])
-                                #print(out2[0])
-                        else:
-                                arduino_input[0] = str(out[0])
-                                #print(out[0])
-                    #arduino_input[0] = str(1)
-
-
-                    arduino_control = bytes(arduino_input[0] + ',' + arduino_input[1],'utf-8')
-                    megapi_control = bytes(megapi_input[0], 'utf-8')
-                    print("saveimageだよ")
-                    print(arduino_control)
-                    print(megapi_control)
-
-                    conn.sendall(b'1')
-
-                elif data == b"senddata":
-                    #arduino_control = bytes(input(),'utf-8')
-
-
-                    # arduino_control = bytes(arduino_input[0] + ',' + arduino_input[1],'utf-8')
-                    # megapi_control = bytes(megapi_input[0], 'utf-8')
-                    print("senddataだよ")
-                    print(arduino_control)
-                    print(megapi_control)
-
-
-                    # sleep(5)
-                    # print(arduino_control)
-                    # ser.write(arduino_control)
-                    #
-                    # if cotton_size >= 0 and cotton_size <= 30:
-                    #     #small size
-                    #     sleep(10)
-                    # elif cotton_size > 30 and cotton_size <= 50:
-                    #     #midium size
-                    #     sleep(13)
-                    # else:
-                    #     #big size
-                    #     sleep(15)
-                    # print(megapi_control)
-                    # ser2.write(megapi_control)
-                    # sleep(5)
-
-                    conn.sendall(b'3')
-
-                # if data == b"savecandysize":
+        out = [key for key, value in emotion.items() if value == 'VERY_LIKELY']
+        if not out:
+            out2 = [key for key, value in emotion.items() if value == 'LIKELY']
+            if not out2:
+                out3 = [key for key, value in emotion.items() if value == 'POSSIBLE']
+                if not out3:
+                    arduino_input[0] = str('0')
+                    #print(0)
                 else:
-                    #Processingからサイズが送られてくる
-                    #print(data)
-                    cotton_size_str = data.decode() #ここにデータを入れる
-                    print(cotton_size_str)
-                    cotton_size = int(cotton_size_str)
-                    print(cotton_size)
-                    print(type(cotton_size))
+                    arduino_input[0] = str(out3[0])
+                    #print(out3[0])
+            else:
+                arduino_input[0] = str(out2[0])
+                #print(out2[0])
+        else:
+                arduino_input[0] = str(out[0])
+                #print(out[0])
+    #arduino_input[0] = str(1)
 
-                    #str(' Times of Electric current ')+'e'
-                    if cotton_size >= 0 and cotton_size <= 15:
-                        arduino_input[1] = str('2')+'e'
-                    elif cotton_size > 15 and cotton_size <= 25:
-                        arduino_input[1] = str('5')+'e'
-                    elif cotton_size > 25 and cotton_size <= 40:
-                        arduino_input[1] = str('10')+'e'
-                    elif cotton_size > 40 and cotton_size <= 50:
-                        arduino_input[1] = str('15')+'e'
+def size_adjustment(cotton_size):
+    if cotton_size >= 0 and cotton_size <= 15:
+        arduino_input[1] = str('2') + 'e'
+    elif cotton_size > 15 and cotton_size <= 25:
+        arduino_input[1] = str('5') + 'e'
+    elif cotton_size > 25 and cotton_size <= 40:
+        arduino_input[1] = str('10') + 'e'
+    elif cotton_size > 40 and cotton_size <= 50:
+        arduino_input[1] = str('15') + 'e'
+    else:
+        arduino_input[1] = str('20') + 'e'
+
+    # MegaPi
+    if cotton_size >= 0 and cotton_size <= 25:
+        megapi_input[0] = str('1')
+    elif cotton_size > 25 and cotton_size <= 50:
+        megapi_input[0] = str('2')
+    else:
+        megapi_input[0] = str('3')
+
+
+def send_to_arduino(arduino_control,megapi_control):
+    print("シリアル通信するよ！")
+    # sleep(5)
+    # print(arduino_control)
+    # ser.write(arduino_control)
+    #
+    # if cotton_size >= 0 and cotton_size <= 30:
+    #     #small size
+    #     sleep(10)
+    # elif cotton_size > 30 and cotton_size <= 50:
+    #     #midium size
+    #     sleep(13)
+    # else:
+    #     #big size
+    #     sleep(15)
+    # print(megapi_control)
+    # ser2.write(megapi_control)
+    # sleep(5)
+
+
+
+
+if __name__ == '__main__':
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        # IPアドレスとポートを指定
+        s.bind(('127.0.0.1', 5555))
+    # 1 接続
+        s.listen(1)
+    # connection するまで待つ
+        while True:
+            # 誰かがアクセスしてきたら、コネクションとアドレスを入れる
+            conn, addr = s.accept()
+            with conn:
+                while True:
+                    # データを受け取る
+                    data = conn.recv(1024)
+                    if not data:
+                        break
+                    #print('data : {}, addr: {}'.format(data, addr))
+                    if data == b"savefaceimage":
+                        # Processingから写真が撮れたかどうかが送られてくる
+                        vision_api()
+                        arduino_control = bytes(
+                        arduino_input[0] + ',' + arduino_input[1], 'utf-8')
+                        megapi_control = bytes(megapi_input[0], 'utf-8')
+                        print("saveimageだよ")
+                        print(arduino_control)
+                        print(megapi_control)
+                        conn.sendall(b'1')
+
+                    elif data == b"senddata":
+                        # Arduinoにシリアル通信
+                        print("senddataだよ")
+                        print(arduino_control)
+                        print(megapi_control)
+
+
+                        send_to_arduino(arduino_control,megapi_control)
+
+
+
+                        conn.sendall(b'3')
+
                     else:
-                        arduino_input[1] = str('20')+'e'
+                        # Processingからサイズが送られてくる
+                        cotton_size_str = data.decode()  # ここにデータを入れる
+                        # print(cotton_size_str)
+                        cotton_size = int(cotton_size_str)
+                        print(cotton_size)
+                        print("cm")
 
-                        #MegaPi
-                    if cotton_size >= 0 and cotton_size <= 25:
-                        megapi_input[0] = str('1')
-                    elif cotton_size > 25 and cotton_size <= 50:
-                        megapi_input[0] = str('2')
-                    else:
-                        megapi_input[0] = str('3')
+                        size_adjustment(cotton_size)
 
-                    arduino_control = bytes(arduino_input[0] + ',' + arduino_input[1],'utf-8')
-                    megapi_control = bytes(megapi_input[0], 'utf-8')
-                    print("savecandysizeだよ")
-                    print(arduino_control)
-                    print(megapi_control)
+                        arduino_control = bytes(
+                        arduino_input[0] + ',' + arduino_input[1], 'utf-8')
+                        megapi_control = bytes(megapi_input[0], 'utf-8')
+                        print("savecandysizeだよ")
+                        print(arduino_control)
+                        print(megapi_control)
 
-                    conn.sendall(b'2')
-
-
-
-
-                # else:
-                #     conn.sendall(b'c')
+                        conn.sendall(b'2')

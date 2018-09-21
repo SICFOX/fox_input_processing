@@ -16,6 +16,7 @@ class ExpressionState extends State {
     shoot = 0;
     baseTime = millis();
     nextState = false;
+    expressionFlag = true;
   }
   
   void drawState() {
