@@ -103,6 +103,12 @@ void onNewUser(SimpleOpenNI curContext, int userId) {
   curContext.startTrackingSkeleton(userId);
 }
 
+void onLostUser(SimpleOpenNI curContext, int userId)
+{
+  println("onLostUser - userId: " + userId);
+  curContext.startTrackingSkeleton(userId);
+}
+
 //サーバーからデータを受け取るときに呼ばれるコールバック関数
 void clientEvent(Client c) {
   String s = c.readString();

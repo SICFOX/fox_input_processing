@@ -92,8 +92,8 @@ class HandState extends State {
         vertex(com2d.x - 5,com2d.y);
         vertex(com2d.x + 5,com2d.y);
         endShape();
-        fill(0,255,100);
-        text(Integer.toString(userList[i]),com2d.x,com2d.y);
+        //fill(0,255,100);
+        //text(Integer.toString(userList[i]),com2d.x,com2d.y);
       }
     }   
 } 
