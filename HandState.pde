@@ -49,7 +49,7 @@ class HandState extends State {
         if (cm_diff > 0) {
           int countdown = millis() - baseTime;
           if(countdown < 11000){
-            text("csize : " + str(cm_diff)+"cm", width * 0.8, height * 0.7);
+            text("size : " + str(cm_diff)+"cm", width * 0.8, height * 0.7);
             //text("cototn candy size : " + str(cm_diff)+"cm", width * 0.5, height * 0.7);
           //text("countdown : " + str(3),width * 0.5, height * 0.9);
           }else if(countdown < 12000){
@@ -70,6 +70,10 @@ class HandState extends State {
               client.write(s);
               handFlag = false;
               //delay(3000);
+              nextState = true;
+            }else if(countdown > 16000){
+            text("Thank you", width * 0.8, height * 0.7);
+            text("Save size : " + str(saved_size)+"cm", width * 0.8, height * 0.9);
               nextState = true;
             }
           }

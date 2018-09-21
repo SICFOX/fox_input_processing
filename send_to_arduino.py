@@ -27,9 +27,9 @@ megapi_control = ""
 
 #Serial Port
 #Arduino
-# ser = serial.Serial('/dev/cu.usbmodem1421', 9600)
+# ser = serial.Serial('/dev/cu.usbmodem14231', 9600)
 #MegaPi
-# ser2 = serial.Serial('/dev/cu.wchusbserial1420', 9600)
+# ser2 = serial.Serial('/dev/cu.wchusbserial14210', 9600)
 
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -85,7 +85,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                         c = response.json()['responses'][0]['faceAnnotations'][0]['angerLikelihood']
                         d = response.json()['responses'][0]['faceAnnotations'][0]['surpriseLikelihood']
                         emotion = {1:a, 2:b, 3:c, 0:d}
-                        #print(emotion)
+                        print(emotion)
 
                         out = [key for key, value in emotion.items() if value == 'VERY_LIKELY']
                         if not out:
@@ -129,7 +129,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                     # sleep(5)
                     # print(arduino_control)
                     # ser.write(arduino_control)
-
+                    #
                     # if cotton_size >= 0 and cotton_size <= 30:
                     #     #small size
                     #     sleep(10)
