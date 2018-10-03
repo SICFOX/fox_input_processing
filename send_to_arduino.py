@@ -110,7 +110,6 @@ def size_adjustment(cotton_size):
 
 def send_to_arduino(arduino_control,megapi_control):
     print("シリアル通信するよ！")
-<<<<<<< HEAD
     sleep(5)
     print(arduino_control)
     ser.write(arduino_control)
@@ -127,24 +126,6 @@ def send_to_arduino(arduino_control,megapi_control):
     print(megapi_control)
     ser2.write(megapi_control)
     sleep(5)
-=======
-    # sleep(5)
-    # print(arduino_control)
-    # ser.write(arduino_control)
-
-    # if cotton_size >= 0 and cotton_size <= 30:
-    #     #small size
-    #     sleep(10)
-    # elif cotton_size > 30 and cotton_size <= 50:
-    #     #midium size
-    #     sleep(13)
-    # else:
-    #     #big size
-    #     sleep(15)
-    # print(megapi_control)
-    # ser2.write(megapi_control)
-    # sleep(5)
->>>>>>> f155aa14f6c7e12b54a33d9bd5575eb4b1cc8fb5
 
 
 
