@@ -48,7 +48,7 @@ void setup() {
   context.enableDepth();
   context.enableUser();
 
-  stroke(0, 0, 255);
+  stroke(255, 255, 255);
   strokeWeight(3);
   smooth();
   
