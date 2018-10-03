@@ -58,6 +58,7 @@ void setup() {
 void draw() {
   background(0,183,241);
   state = state.doState();
+  println( state.getClass().getName() );
 }
 
 // draw the skeleton with the selected joints

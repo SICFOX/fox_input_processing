@@ -71,7 +71,7 @@ class HandState extends State {
               client.write(s);
               handFlag = false;
               //delay(3000);
-              nextState = true;
+              //nextState = true;
             }else if(countdown > 16000){
             text("Thank you", width * 0.8, height * 0.7);
             text("Save size : " + str(saved_size)+"cm", width * 0.8, height * 0.9);
@@ -103,9 +103,12 @@ class HandState extends State {
   
  
   State decideState() {
-    if (keyPressed && key == 'w') {
+     if (keyPressed && keyCode == RIGHT) {
       playerHand.close() ;
       return new WaitState();
+    }else if(keyPressed && keyCode == LEFT){
+      playerHand.close() ;
+      return new ExpressionState();
     }
     if (nextState) {
       playerHand.close() ;

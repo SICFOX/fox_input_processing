@@ -84,11 +84,24 @@ class ExpressionState extends State {
   }
 
   State decideState() {
-    if (keyPressed && key == 'h') {
+    if (key == CODED) {
+      if (keyCode == RIGHT) {  
+        println("右が押された！");
+      } else if (keyCode == LEFT) {
+         println("左が押された！");
+      }
+    }
+    if (keyPressed && keyCode == RIGHT) {
       playerExpression.close();
       playerPhoto.close() ;
       return new HandState();
+    }else if(keyPressed && keyCode == LEFT){
+      playerExpression.close();
+      playerPhoto.close() ;
+      return new IntroState();
     }
+    
+    
     if (nextState) { // if ellapsed time is larger than
       playerExpression.close();
       playerPhoto.close() ;
