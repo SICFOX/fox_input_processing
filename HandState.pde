@@ -32,7 +32,9 @@ class HandState extends State {
     
     
     context.update();
-    image(context.userImage(),0,0);
+    //デバッグモード
+    //image(context.rgbImage(),0,0);
+    image(context.rgbImage(),0,0);
     fill(255);
     //text("Please hand gesture", width * 0.5, height * 0.5);
     

@@ -68,11 +68,22 @@ float drawSkeleton(int userId) {
   PVector leftHandPos = new PVector();
   context.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_RIGHT_HAND, rightHandPos);
   context.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_LEFT_HAND, leftHandPos);
-  //  println(rightHandPos.x,leftHandPos.x);
   float diff = rightHandPos.x - leftHandPos.x;
-  //println("Size of Cotton Candy = ", int(diff/10), "cm");
-  //  float depth = (rightHandPos.z + leftHandPos.z)/2;
-  //  println(int(depth));
+  
+  PVector convertedRightHand = new PVector();
+  context.convertRealWorldToProjective(rightHandPos, convertedRightHand );
+
+  PVector convertedLeftHand = new PVector();
+  context.convertRealWorldToProjective(leftHandPos, convertedLeftHand );
+
+   
+  int positionX = int((convertedRightHand.x + convertedLeftHand.x)/2);
+  int positionY = int((convertedRightHand.y + convertedLeftHand.y)/2);
+  int diffPosition = int(convertedRightHand.x - convertedLeftHand.x);
+
+  fill(255, 0, 0);
+  ellipse(positionX,positionY, diffPosition - 10, diffPosition - 10);
+
 
   context.drawLimb(userId, SimpleOpenNI.SKEL_HEAD, SimpleOpenNI.SKEL_NECK);
 
