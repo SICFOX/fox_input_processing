@@ -26,7 +26,7 @@ class ExpressionState extends State {
     
     context.update();
     background(0,183,241);
-    image(context.rgbImage(), 0, 0);
+    image(context.rgbImage(), 275, 235);
     
     
     //text("Press 'h' to restart.", width * 0.5, height * 0.7);

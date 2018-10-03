@@ -33,8 +33,8 @@ class HandState extends State {
     
     context.update();
     //デバッグモード
-    //image(context.rgbImage(),0,0);
-    image(context.rgbImage(),0,0);
+    image(context.userImage(),275, 235);
+    image(context.rgbImage(),275, 235);
     fill(255);
     //text("Please hand gesture", width * 0.5, height * 0.5);
     
@@ -90,7 +90,7 @@ class HandState extends State {
         stroke(100,255,0);
         strokeWeight(1);
         beginShape(LINES);
-        vertex(com2d.x,com2d.y - 5);
+        vertex(com2d.x ,com2d.y - 5);
         vertex(com2d.x,com2d.y + 5);
         vertex(com2d.x - 5,com2d.y);
         vertex(com2d.x + 5,com2d.y);
