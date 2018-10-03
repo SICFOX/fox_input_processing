@@ -81,7 +81,7 @@ float drawSkeleton(int userId) {
   int positionY = int((convertedRightHand.y + convertedLeftHand.y)/2);
   int diffPosition = int(convertedRightHand.x - convertedLeftHand.x);
 
-  fill(255, 0, 0);
+  fill(0, 0, 255,50);
   ellipse(positionX,positionY, diffPosition - 10, diffPosition - 10);
 
 
