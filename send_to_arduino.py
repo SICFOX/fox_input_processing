@@ -65,7 +65,8 @@ def vision_api():
         c = response.json()['responses'][0]['faceAnnotations'][0]['angerLikelihood']
         d = response.json()['responses'][0]['faceAnnotations'][0]['surpriseLikelihood']
         emotion = {1:a, 2:b, 3:c, 0:d}
-        print(emotion)
+        emotion_text = {"喜び":a, "悲しみ":b, "怒り":c, "驚き":d}
+        print(emotion_text)
 
         out = [key for key, value in emotion.items() if value == 'VERY_LIKELY']
         if not out:
@@ -112,7 +113,7 @@ def send_to_arduino(arduino_control,megapi_control):
     # sleep(5)
     # print(arduino_control)
     # ser.write(arduino_control)
-    
+
     # if cotton_size >= 0 and cotton_size <= 30:
     #     #small size
     #     sleep(10)
@@ -147,26 +148,23 @@ if __name__ == '__main__':
                         break
                     #print('data : {}, addr: {}'.format(data, addr))
                     if data == b"savefaceimage":
+                        print("画像を保存しました")
                         # Processingから写真が撮れたかどうかが送られてくる
                         vision_api()
                         arduino_control = bytes(
                         arduino_input[0] + ',' + arduino_input[1], 'utf-8')
                         megapi_control = bytes(megapi_input[0], 'utf-8')
-                        print("saveimageだよ")
+                        print("APIから感情を分析しました")
                         print(arduino_control)
                         print(megapi_control)
                         conn.sendall(b'1')
 
                     elif data == b"senddata":
                         # Arduinoにシリアル通信
-                        print("senddataだよ")
+                        send_to_arduino(arduino_control,megapi_control)
+                        print("Arduinoにデータを送信しました")
                         print(arduino_control)
                         print(megapi_control)
-
-
-                        send_to_arduino(arduino_control,megapi_control)
-
-
 
                         conn.sendall(b'3')
 
@@ -175,15 +173,14 @@ if __name__ == '__main__':
                         cotton_size_str = data.decode()  # ここにデータを入れる
                         # print(cotton_size_str)
                         cotton_size = int(cotton_size_str)
-                        print(cotton_size)
-                        print("cm")
 
                         size_adjustment(cotton_size)
 
                         arduino_control = bytes(
                         arduino_input[0] + ',' + arduino_input[1], 'utf-8')
                         megapi_control = bytes(megapi_input[0], 'utf-8')
-                        print("savecandysizeだよ")
+                        print("わたあめの大きさを保存しました")
+                        print(cotton_size_str + "cmです")
                         print(arduino_control)
                         print(megapi_control)
 
