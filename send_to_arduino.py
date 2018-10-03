@@ -27,9 +27,9 @@ megapi_control = ""
 
 # #Serial Port
 # #Arduino
-# ser = serial.Serial('/dev/cu.usbmodem14121', 9600)
+ser = serial.Serial('/dev/cu.usbmodem14131', 9600)
 # #MegaPi
-# ser2 = serial.Serial('/dev/cu.wchusbserial14110', 9600)
+ser2 = serial.Serial('/dev/cu.wchusbserial14110', 9600)
 
 def vision_api():
     image_filenames = ['./img/img1.jpg']
@@ -109,22 +109,22 @@ def size_adjustment(cotton_size):
 
 def send_to_arduino(arduino_control,megapi_control):
     print("シリアル通信するよ！")
-    # sleep(5)
-    # print(arduino_control)
-    # ser.write(arduino_control)
-    
-    # if cotton_size >= 0 and cotton_size <= 30:
-    #     #small size
-    #     sleep(10)
-    # elif cotton_size > 30 and cotton_size <= 50:
-    #     #midium size
-    #     sleep(13)
-    # else:
-    #     #big size
-    #     sleep(15)
-    # print(megapi_control)
-    # ser2.write(megapi_control)
-    # sleep(5)
+    sleep(5)
+    print(arduino_control)
+    ser.write(arduino_control)
+
+    if cotton_size >= 0 and cotton_size <= 30:
+        #small size
+        sleep(10)
+    elif cotton_size > 30 and cotton_size <= 50:
+        #midium size
+        sleep(13)
+    else:
+        #big size
+        sleep(15)
+    print(megapi_control)
+    ser2.write(megapi_control)
+    sleep(5)
 
 
 
