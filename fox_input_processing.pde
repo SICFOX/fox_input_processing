@@ -25,7 +25,8 @@ Client client;
 void setup() {
   client = new Client(this, "127.0.0.1", 5555);
   minim = new Minim(this);
-  size(640, 480);
+  //size(640, 480);
+  size(1000,800);
   //size(displayWidth, displayHeight);
   textSize(32);
   textAlign(CENTER);
@@ -66,23 +67,37 @@ float drawSkeleton(int userId) {
   // to get the 3d joint data
   PVector rightHandPos = new PVector();
   PVector leftHandPos = new PVector();
+  PVector torsoPos = new PVector();
   context.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_RIGHT_HAND, rightHandPos);
   context.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_LEFT_HAND, leftHandPos);
+  context.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_TORSO, torsoPos);
   float diff = rightHandPos.x - leftHandPos.x;
+  
   
   PVector convertedRightHand = new PVector();
   context.convertRealWorldToProjective(rightHandPos, convertedRightHand );
 
   PVector convertedLeftHand = new PVector();
   context.convertRealWorldToProjective(leftHandPos, convertedLeftHand );
+  
+  PVector convertedTorso = new PVector();
+  context.convertRealWorldToProjective(torsoPos, convertedTorso );
 
    
   int positionX = int((convertedRightHand.x + convertedLeftHand.x)/2);
   int positionY = int((convertedRightHand.y + convertedLeftHand.y)/2);
   int diffPosition = int(convertedRightHand.x - convertedLeftHand.x);
-
+  
+  if(diffPosition < 50){
+    diffPosition = 60;
+    positionX = int(convertedTorso.x);
+    positionY = int(convertedTorso.y);
+//    positionY = height/2;
+  }
   fill(0, 0, 255,50);
-  ellipse(positionX,positionY, diffPosition - 10, diffPosition - 10);
+  ellipse(positionX + 275,positionY + 235, diffPosition - 10, diffPosition - 10);
+  
+  //print(SimpleOpenNI.SKEL_HEAD);
 
 
 //  context.drawLimb(userId, SimpleOpenNI.SKEL_HEAD, SimpleOpenNI.SKEL_NECK);
@@ -119,6 +134,10 @@ void onLostUser(SimpleOpenNI curContext, int userId)
 {
   println("onLostUser - userId: " + userId);
   curContext.startTrackingSkeleton(userId);
+}
+void onVisibleUser(SimpleOpenNI curkinect, int userId)
+{
+//  println("onVisibleUser - userId: " + userId);
 }
 
 //サーバーからデータを受け取るときに呼ばれるコールバック関数
