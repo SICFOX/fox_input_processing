@@ -23,10 +23,22 @@ class WaitState extends State {
   }
 
   State decideState() {
-    if (keyPressed && key == 'z') {
+    if (key == CODED) {
+      if (keyCode == RIGHT) {  
+        println("右が押された");
+      } else if (keyCode == LEFT) {
+         println("左が押された");
+      }
+    }
+
+    if (keyPressed && keyCode == RIGHT) {
       playerWait.close() ;
       return new TitleState();
+    }else if(keyPressed && keyCode == LEFT){
+      playerWait.close() ;
+      return new HandState();
     }
+    
     return this;
   }
 }

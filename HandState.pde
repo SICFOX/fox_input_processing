@@ -1,5 +1,5 @@
 class HandState extends State {
-  AudioPlayer playerHand; 
+  AudioPlayer playerHand;
   PVector com;
   PVector com2d;
   color[] userClr;
@@ -12,15 +12,15 @@ class HandState extends State {
 
   HandState() {
     playerHand = minim.loadFile("hand_sign.mp3");
-    userClr = new color[] { 
-      color(255, 0, 0), 
-      color(0, 255, 0), 
-      color(0, 0, 255), 
-      color(255, 255, 0), 
-      color(255, 0, 255), 
+    userClr = new color[] {
+      color(255, 0, 0),
+      color(0, 255, 0),
+      color(0, 0, 255),
+      color(255, 255, 0),
+      color(255, 0, 255),
       color(0, 255, 255)
     };
-    com = new PVector();                                   
+    com = new PVector();
     com2d = new PVector();
     background(0, 183, 241);
     baseTime = millis();
@@ -34,7 +34,9 @@ class HandState extends State {
 
 
     context.update();
-    image(context.userImage(), 0, 0);
+    //デバッグモード
+    image(context.userImage(),275, 235);
+    image(context.rgbImage(),275, 235);
     fill(255);
     //text("Please hand gesture", width * 0.5, height * 0.5);
 
@@ -75,9 +77,9 @@ class HandState extends State {
               handFlag = false;
               //delay(3000);
               //nextState = true;
-            } else if (countdown > 16000) {
-              text("Thank you", width * 0.8, height * 0.7);
-              text("Save size : " + str(saved_size)+"cm", width * 0.8, height * 0.9);
+            }else if(countdown > 16000){
+            text("Thank you", width * 0.8, height * 0.7);
+            text("Save size : " + str(saved_size)+"cm", width * 0.8, height * 0.9);
               nextState = true;
             }
           }
@@ -103,15 +105,18 @@ class HandState extends State {
         text(Integer.toString(userList[i]),com2d.x,com2d.y);
       }
     }
-  } 
+  }
 
 
 
 
   State decideState() {
-    if (keyPressed && key == 'w') {
+     if (keyPressed && keyCode == RIGHT) {
       playerHand.close() ;
       return new WaitState();
+    }else if(keyPressed && keyCode == LEFT){
+      playerHand.close() ;
+      return new ExpressionState();
     }
     if (nextState) {
       playerHand.close() ;
@@ -120,4 +125,3 @@ class HandState extends State {
     return this;
   }
 }
-

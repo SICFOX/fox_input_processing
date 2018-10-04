@@ -21,11 +21,15 @@ class IntroState extends State {
     }
   }
 
-  State decideState() {
-    if (keyPressed && key == 'e') {
+  State decideState() {   
+    if (keyPressed && keyCode == RIGHT) {
       playerIntro.close() ;
       return new ExpressionState();
+    }else if(keyPressed && keyCode == LEFT){
+      playerIntro.close() ;
+      return new TitleState();
     }
+    
     if (nextState) {
       playerIntro.close() ;
       return new ExpressionState();

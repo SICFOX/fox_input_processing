@@ -27,11 +27,11 @@ cotton_size_str = 0
 arduino_control = ""
 megapi_control = ""
 
-#Serial Port
-#Arduino
-# ser = serial.Serial('/dev/cu.usbmodem14131', 9600)
-#MegaPi
-# ser2 = serial.Serial('/dev/cu.wchusbserial14110', 9600)
+# #Serial Port
+# #Arduino
+ser = serial.Serial('/dev/cu.usbmodem14131', 9600)
+# #MegaPi
+ser2 = serial.Serial('/dev/cu.wchusbserial14110', 9600)
 
 def vision_api():
     image_filenames = ['./img/img1.jpg']
@@ -67,7 +67,8 @@ def vision_api():
         c = response.json()['responses'][0]['faceAnnotations'][0]['angerLikelihood']
         d = response.json()['responses'][0]['faceAnnotations'][0]['surpriseLikelihood']
         emotion = {1:a, 2:b, 3:c, 0:d}
-        print(emotion)
+        emotion_text = {"喜び":a, "悲しみ":b, "怒り":c, "驚き":d}
+        print(emotion_text)
 
         out = [key for key, value in emotion.items() if value == 'VERY_LIKELY']
         if not out:
@@ -76,6 +77,7 @@ def vision_api():
                 out3 = [key for key, value in emotion.items() if value == 'POSSIBLE']
                 if not out3:
                     arduino_input[0] = str(random.randint(0,3))
+                    #print(0)
                 else:
                     arduino_input[0] = str(out3[0])
             else:
@@ -109,23 +111,24 @@ def size_adjustment(cotton_size):
 
 
 def send_to_arduino(arduino_control,megapi_control):
-    print("Serial Connection")
-    # sleep(5)
-    # print(arduino_control)
-    # ser.write(arduino_control)
-    #
-    # if cotton_size >= 0 and cotton_size <= 30:
-    #     #small size
-    #     sleep(10)
-    # elif cotton_size > 30 and cotton_size <= 50:
-    #     #midium size
-    #     sleep(13)
-    # else:
-    #     #big size
-    #     sleep(15)
-    # print(megapi_control)
-    # ser2.write(megapi_control)
-    # sleep(5)
+    print("シリアル通信するよ！")
+    sleep(5)
+    print(arduino_control)
+    ser.write(arduino_control)
+
+    if cotton_size >= 0 and cotton_size <= 24:
+        #small size
+        sleep(10)
+    elif cotton_size > 24 and cotton_size <= 30:
+        #midium size
+        sleep(15)
+    else:
+        #big size
+        sleep(20)
+
+    print(megapi_control)
+    ser2.write(megapi_control)
+    sleep(5)
 
 
 
@@ -152,21 +155,17 @@ if __name__ == '__main__':
                         arduino_control = bytes(
                         arduino_input[0] + ',' + arduino_input[1], 'utf-8')
                         megapi_control = bytes(megapi_input[0], 'utf-8')
-                        print("Save Image")
+                        print("APIから感情を分析しました")
                         print(arduino_control)
                         print(megapi_control)
                         conn.sendall(b'1')
 
                     elif data == b"senddata":
-                        # to Arduino Serial Connection
-                        print("Send Data")
+                        # Arduinoにシリアル通信
+                        send_to_arduino(arduino_control,megapi_control)
+                        print("Arduinoにデータを送信しました")
                         print(arduino_control)
                         print(megapi_control)
-
-
-                        send_to_arduino(arduino_control,megapi_control)
-
-
 
                         conn.sendall(b'3')
 
@@ -181,7 +180,8 @@ if __name__ == '__main__':
 
                         arduino_control = bytes(arduino_input[0] + ',' + arduino_input[1], 'utf-8')
                         megapi_control = bytes(megapi_input[0], 'utf-8')
-                        print("Save CottonCandy Size")
+                        print("わたあめの大きさを保存しました")
+                        print(cotton_size_str + "cmです")
                         print(arduino_control)
                         print(megapi_control)
 

@@ -26,7 +26,7 @@ class ExpressionState extends State {
     
     context.update();
     background(0,183,241);
-    image(context.rgbImage(), 0, 0);
+    image(context.rgbImage(), 275, 235);
     
     
     //text("Press 'h' to restart.", width * 0.5, height * 0.7);
@@ -84,11 +84,24 @@ class ExpressionState extends State {
   }
 
   State decideState() {
-    if (keyPressed && key == 'h') {
+    if (key == CODED) {
+      if (keyCode == RIGHT) {  
+        println("右が押された！");
+      } else if (keyCode == LEFT) {
+         println("左が押された！");
+      }
+    }
+    if (keyPressed && keyCode == RIGHT) {
       playerExpression.close();
       playerPhoto.close() ;
       return new HandState();
+    }else if(keyPressed && keyCode == LEFT){
+      playerExpression.close();
+      playerPhoto.close() ;
+      return new IntroState();
     }
+    
+    
     if (nextState) { // if ellapsed time is larger than
       playerExpression.close();
       playerPhoto.close() ;
