@@ -26,7 +26,7 @@ class ExpressionState extends State {
     
     context.update();
     background(0,183,241);
-    image(context.rgbImage(), 275, 235);
+    image(context.rgbImage(), 300, 235);
     
     
     //text("Press 'h' to restart.", width * 0.5, height * 0.7);
@@ -35,22 +35,33 @@ class ExpressionState extends State {
     
     int countdown = millis() - baseTime;
     if(countdown < 6000){
-      text("Show your face me", width * 0.5, height * 0.5);
-      text("Take your picture",width * 0.5, height * 0.7);
+      textSize(28);
+      text("Show me your face", 150, 300);
+      text("Take your picture",150, 400);
     }else if(countdown < 7000){
-      text("Show your face me", width * 0.5, height * 0.5);
-      text("countdown : " + str(3),width * 0.5, height * 0.7);
+      textSize(28);
+      text("Show your face me", 150, 300);
+      text("countdown : ",150, 400);
+      textSize(100);
+      text(str(3),150, 500);
     }else if (countdown < 8000){
-      text("Show your face me", width * 0.5, height * 0.5);
-      text("countdown : " + str(2),width * 0.5, height * 0.7);
+      textSize(28);
+      text("Show your face me", 150, 300);
+      text("countdown : ",150, 400);
+      textSize(100);
+      text(str(2),150, 500);
     }else if (countdown < 9000){
-      text("Show your face me", width * 0.5, height * 0.5);
-      text("countdown : " + str(1),width * 0.5, height * 0.7);
+      textSize(28);
+      text("Show your face me", 150, 300);
+      text("countdown : ",150, 400);
+      textSize(100);
+      text(str(1),150, 500);
     }else if (countdown > 9000 && countdown < 11000){
       playerPhoto.play();
     }else if (countdown > 11000){
-      text("Thank you",width * 0.5, height * 0.5);
-      text("Save your face",width * 0.5, height * 0.7);
+      textSize(28);
+      text("Thank you",150, 300);
+      text("Save your face",150, 400);
       
       //print(expressionFlag);
       if (expressionFlag == true){
