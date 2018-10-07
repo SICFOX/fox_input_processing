@@ -1,14 +1,14 @@
 class ExpressionState extends State {
   AudioPlayer playerExpression;
   AudioPlayer playerPhoto;
-  
-  
+
+
   int shot_count;
   int shoot;
   int baseTime;
   String received;
   boolean nextState;
-  
+
   ExpressionState() {
     playerExpression = minim.loadFile("face_expression.mp3");
     playerPhoto = minim.loadFile("camera_shutter.mp3");
@@ -18,21 +18,21 @@ class ExpressionState extends State {
     nextState = false;
     expressionFlag = true;
   }
-  
+
   void drawState() {
     //3番目最初に呼ばれるクラス
     playerExpression.play();
-    
-    
+
+
     context.update();
-    background(0,183,241);
-    image(context.rgbImage(), 300, 235);
-    
-    
+    background(51,183,241);
+    image(context.rgbImage(), 340, 250);
+
+
     //text("Press 'h' to restart.", width * 0.5, height * 0.7);
-    
-    
-    
+
+
+
     int countdown = millis() - baseTime;
     if(countdown < 6000){
       textSize(28);
@@ -62,7 +62,7 @@ class ExpressionState extends State {
       textSize(28);
       text("Thank you",150, 300);
       text("Save your face",150, 400);
-      
+
       //print(expressionFlag);
       if (expressionFlag == true){
         String s = "savefaceimage";
@@ -73,7 +73,7 @@ class ExpressionState extends State {
       }
 //      received = clientEvent();
     }
-    
+
     switch(shoot) {
       case 0:
         if (countdown > 9000) {
@@ -96,7 +96,7 @@ class ExpressionState extends State {
 
   State decideState() {
     if (key == CODED) {
-      if (keyCode == RIGHT) {  
+      if (keyCode == RIGHT) {
         println("右が押された！");
       } else if (keyCode == LEFT) {
          println("左が押された！");
@@ -111,13 +111,13 @@ class ExpressionState extends State {
       playerPhoto.close() ;
       return new IntroState();
     }
-    
-    
+
+
     if (nextState) { // if ellapsed time is larger than
       playerExpression.close();
       playerPhoto.close() ;
       return new HandState(); // go to ending
-    } 
+    }
     return this;
   }
 }
