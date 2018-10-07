@@ -5,6 +5,8 @@ import ddf.minim.analysis.*;
 import ddf.minim.ugens.*;
 import ddf.minim.effects.*;
 
+import processing.video.*;
+
 import SimpleOpenNI.*;
 
 import processing.net.*;
@@ -14,11 +16,15 @@ State state;
 SimpleOpenNI  context;
 SimpleOpenNI  context2;
 
+Movie test;
+
 PImage img;
 
 boolean expressionFlag;
 boolean handFlag;
 boolean waitFlag;
+
+PFont text;
 
 Client client;
 
@@ -56,10 +62,15 @@ void setup() {
   smooth();
   
   img = loadImage("Fox_logo.png");
+  text = loadFont("MrEavesSanOT-Bold-144.vlw"); 
+  test = new Movie(this, "test02.MP4");
+  test.loop();
+  test.volume(0);
+ 
 }
 
 void draw() {
-  background(0,183,241);
+  background(51,183,241);
   state = state.doState();
   println( state.getClass().getName() );
 }
@@ -164,3 +175,7 @@ void clientEvent(Client c) {
     }
   }
 }
+
+void movieEvent(Movie m) {
+     m.read();
+   }

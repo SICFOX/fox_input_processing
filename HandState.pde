@@ -20,7 +20,7 @@ class HandState extends State {
     };
     com = new PVector();                                   
     com2d = new PVector();
-    background(0,183,241);
+    background(51,183,241);
     baseTime = millis();
     nextState = false;
     handFlag = true;
@@ -33,8 +33,8 @@ class HandState extends State {
     
     context.update();
     //デバッグモード
-    image(context.userImage(),275, 235);
-    image(context.rgbImage(),275, 235);
+    image(context.userImage(),340, 250);
+    image(context.rgbImage(),340, 250);
     fill(255);
     //text("Please hand gesture", width * 0.5, height * 0.5);
     
