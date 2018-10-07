@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-#python visionAPI.py (画像ファイルのパス)
+#start python → processing
+#close processing → python
 #api_key AIzaSyCYzlittDbDrELqOMGn77-LYLiuplMnvgA
 
 
@@ -16,9 +17,9 @@ import random
 ENDPOINT_URL = 'https://vision.googleapis.com/v1/images:annotate'
 
 #[color, size]
-arduino_input = [str(1), str(20)+'e']
+arduino_input = [str(1), str(10)+'e']
 #[size]
-megapi_input = [str(20)]
+megapi_input = [str(10)]
 
 cotton_size = 120
 cotton_size_str = 0
@@ -79,16 +80,14 @@ def vision_api():
                     #print(0)
                 else:
                     arduino_input[0] = str(out3[0])
-                    #print(out3[0])
             else:
                 arduino_input[0] = str(out2[0])
-                #print(out2[0])
         else:
                 arduino_input[0] = str(out[0])
-                #print(out[0])
     #arduino_input[0] = str(1)
 
 def size_adjustment(cotton_size):
+    #Arduino
     if cotton_size >= 0 and cotton_size <= 17:
         arduino_input[1] = str('3') + 'e'
     elif cotton_size > 17 and cotton_size <= 24:
@@ -136,24 +135,22 @@ def send_to_arduino(arduino_control,megapi_control):
 
 if __name__ == '__main__':
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        # IPアドレスとポートを指定
+        # IP Adress and Port
         s.bind(('127.0.0.1', 5555))
-    # 1 接続
+    # 1 Connect
         s.listen(1)
-    # connection するまで待つ
+    # Wait until Connection
         while True:
-            # 誰かがアクセスしてきたら、コネクションとアドレスを入れる
             conn, addr = s.accept()
             with conn:
                 while True:
-                    # データを受け取る
+                    # Receive Data
                     data = conn.recv(1024)
                     if not data:
                         break
                     #print('data : {}, addr: {}'.format(data, addr))
                     if data == b"savefaceimage":
-                        print("画像を保存しました")
-                        # Processingから写真が撮れたかどうかが送られてくる
+                        # from Processing receive ImageData
                         vision_api()
                         arduino_control = bytes(
                         arduino_input[0] + ',' + arduino_input[1], 'utf-8')
@@ -173,15 +170,15 @@ if __name__ == '__main__':
                         conn.sendall(b'3')
 
                     else:
-                        # Processingからサイズが送られてくる
-                        cotton_size_str = data.decode()  # ここにデータを入れる
+                        # from Processing receive Cotton Candy Size
+                        cotton_size_str = data.decode()  #Data input
                         # print(cotton_size_str)
                         cotton_size = int(cotton_size_str)
+                        print(cotton_size + "cm")
 
                         size_adjustment(cotton_size)
 
-                        arduino_control = bytes(
-                        arduino_input[0] + ',' + arduino_input[1], 'utf-8')
+                        arduino_control = bytes(arduino_input[0] + ',' + arduino_input[1], 'utf-8')
                         megapi_control = bytes(megapi_input[0], 'utf-8')
                         print("わたあめの大きさを保存しました")
                         print(cotton_size_str + "cmです")
