@@ -35,7 +35,6 @@ void setup() {
   client = new Client(this, "127.0.0.1", 5555);
   minim = new Minim(this);
   //size(640, 480);
-  //size(1366,1024);
   size(1000,750);
   
   //size(displayWidth, displayHeight);
