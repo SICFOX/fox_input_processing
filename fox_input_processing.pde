@@ -4,15 +4,16 @@ import ddf.minim.*;
 import ddf.minim.analysis.*;
 import ddf.minim.ugens.*;
 import ddf.minim.effects.*;
-
 import processing.video.*;
-
 import SimpleOpenNI.*;
-
 import processing.net.*;
 
 Minim minim;
+
+Client client;
+
 State state;
+
 SimpleOpenNI  context;
 SimpleOpenNI  context2;
 
@@ -32,21 +33,16 @@ boolean waitFlag;
 
 PFont text;
 
-Client client;
 
 void setup() {
   client = new Client(this, "127.0.0.1", 5555);
   minim = new Minim(this);
-  //size(640, 480);
-  //size(1366,1024);
+  //size(640, 480); Kinectの映像サイズ
   size(1000,750);
-  
-  //size(displayWidth, displayHeight);
   textSize(32);
   textAlign(CENTER);
   fill(255);
   state = new TitleState();
-  
   expressionFlag = true;
   handFlag = true;
   waitFlag = true;
@@ -67,8 +63,6 @@ void setup() {
   strokeWeight(3);
   noStroke();
   smooth();
-  
-  
   
   img = loadImage("Fox_logo.png");
   logo_text = loadImage("Logo_title.png");
@@ -97,7 +91,6 @@ void draw() {
 
 // draw the skeleton with the selected joints
 float drawSkeleton(int userId) {
-  // to get the 3d joint data
   PVector rightHandPos = new PVector();
   PVector leftHandPos = new PVector();
   PVector torsoPos = new PVector();
