@@ -7,18 +7,19 @@ class WaitState extends State {
   }
   
   void drawState() {
+    background(29,175,241);
     fill(255);
-    image(img, width * 0.2,height * 0.4-28,100,110);
-    text("Wait a minitue", width * 0.6, height * 0.5);
+    image(img, 181,80,77,86);
+    textFont(text, 48);  
+    text("Please wait a munites", 600, 140);
     playerWait.play();
+    
+    image(test, 340,250,640,480);
+    
     if (waitFlag == true){
       String s = "senddata";
       client.write(s);
       waitFlag = false;
-    }
-    if (t > 3) {
-      fill(255);
-      text("Press 'z' to restart.", width * 0.5, height * 0.7);
     }
   }
 

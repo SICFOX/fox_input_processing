@@ -22,7 +22,7 @@ class HandState extends State {
     };
     com = new PVector();
     com2d = new PVector();
-    background(51,183,241);
+    background(29,175,241);
     baseTime = millis();
     nextState = false;
     handFlag = true;
@@ -43,9 +43,16 @@ class HandState extends State {
 
     //print(context.rightHandPos.x);
     
-     image(img, 181,80,77,86);
+    image(img, 181,80,77,86);
     textFont(text, 48);  
     text("Adjust the size of the cotton candy", 600, 140);
+    textFont(text, 40);  
+    text("The size is ",148, 283);
+    text("Hold your arm", 148, 560);
+    
+    textFont(text, 72);  
+    text("Contdown",164, 560);
+    text("here",172, 640);
 
     int[] userList = context.getUsers();
     for (int i=0; i<userList.length; i++) {
@@ -59,18 +66,28 @@ class HandState extends State {
           exception = 0;
           countdown = millis() - baseTime - exception;
           if (countdown < 11000) {
-            text("size : " + str(cm_diff)+"cm", width * 0.8, height * 0.7);
+            textFont(text, 120);  
+            text(str(cm_diff)+"cm",188,420);
+//            textFont(text, 72);  
+//            text("Contdown",164, 560);
+//            text("here",172, 640);
             //text("cototn candy size : " + str(cm_diff)+"cm", width * 0.5, height * 0.7);
             //text("countdown : " + str(3),width * 0.5, height * 0.9);
           } else if (countdown < 12000) {
-            text("size : " + str(cm_diff)+"cm", width * 0.8, height * 0.7);
-            text("countdown : " + str(3), width * 0.8, height * 0.9);
+            textFont(text, 120);  
+            text(str(cm_diff)+"cm",172,420 );
+            textFont(text, 200);  
+            text(str(3),172, 680);
           } else if (countdown < 13000) {
-            text("size : " + str(cm_diff)+"cm", width * 0.8, height * 0.7);
-            text("countdown : " + str(2), width * 0.8, height * 0.9);
+            textFont(text, 120);  
+            text(str(cm_diff)+"cm",172,420 );
+            textFont(text, 200);  
+            text(str(2),172, 680);
           } else if (countdown < 14000) {
-            text("size : " + str(cm_diff)+"cm", width * 0.8, height * 0.7);
-            text("countdown : " + str(1), width * 0.8, height * 0.9);
+            textFont(text, 120);  
+            text(str(cm_diff)+"cm",172,420 );
+            textFont(text, 200);  
+            text(str(1),172, 680);
             saved_size = cm_diff;
           } else if (countdown > 14000) {
             text("Thank you", width * 0.8, height * 0.7);
@@ -97,16 +114,16 @@ class HandState extends State {
       // draw the center of mass
       if (context.getCoM(userList[i], com)) {
         context.convertRealWorldToProjective(com, com2d);
-        stroke(100, 255, 0);
-        strokeWeight(1);
-        beginShape(LINES);
-        vertex(com2d.x, com2d.y - 5);
-        vertex(com2d.x, com2d.y + 5);
-        vertex(com2d.x - 5, com2d.y);
-        vertex(com2d.x + 5, com2d.y);
-        endShape();
-        fill(0,255,100);
-        text(Integer.toString(userList[i]),com2d.x,com2d.y);
+//        stroke(100, 255, 0);
+//        strokeWeight(1);
+//        beginShape(LINES);
+//        vertex(com2d.x, com2d.y - 5);
+//        vertex(com2d.x, com2d.y + 5);
+//        vertex(com2d.x - 5, com2d.y);
+//        vertex(com2d.x + 5, com2d.y);
+//        endShape();
+//        fill(0,255,100);
+        //text(Integer.toString(userList[i]),com2d.x,com2d.y);
       }
     }
   }
@@ -120,7 +137,7 @@ class HandState extends State {
       return new WaitState();
     }else if(keyPressed && keyCode == LEFT){
       playerHand.close() ;
-      return new ExpressionState();
+      return new AnalyzeState();
     }
     if (nextState) {
       playerHand.close() ;

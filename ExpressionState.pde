@@ -26,7 +26,7 @@ class ExpressionState extends State {
     
     
     context.update();
-    background(51,183,241);
+    background(29,175,241);
     image(context.rgbImage(), 340, 250);
     
     image(img, 181,80,77,86);
@@ -111,7 +111,7 @@ class ExpressionState extends State {
     if (keyPressed && keyCode == RIGHT) {
       playerExpression.close();
       playerPhoto.close() ;
-      return new HandState();
+      return new AnalyzeState();
     }else if(keyPressed && keyCode == LEFT){
       playerExpression.close();
       playerPhoto.close() ;
@@ -122,7 +122,7 @@ class ExpressionState extends State {
     if (nextState) { // if ellapsed time is larger than
       playerExpression.close();
       playerPhoto.close() ;
-      return new HandState(); // go to ending
+      return new AnalyzeState(); // go to ending
     } 
     return this;
   }

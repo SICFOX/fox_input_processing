@@ -35,6 +35,7 @@ void setup() {
   client = new Client(this, "127.0.0.1", 5555);
   minim = new Minim(this);
   //size(640, 480);
+  //size(1366,1024);
   size(1000,750);
   
   //size(displayWidth, displayHeight);
@@ -69,14 +70,14 @@ void setup() {
   logo_text = loadImage("Logo_title.png");
   loading_img = loadImage("loading.png");
   text = loadFont("MrEavesModOT-Bold-200.vlw"); 
-  test = new Movie(this, "test02.MP4");
+  test = new Movie(this, "sample.MP4");
   test.loop();
   test.volume(0);
  
 }
 
 void draw() {
-  background(51,183,241);
+  background(29,175,241);
   state = state.doState();
   println( state.getClass().getName() );
 }
@@ -114,7 +115,7 @@ float drawSkeleton(int userId) {
 //    positionY = height/2;
   }
   fill(0, 0, 255,50);
-  ellipse(positionX + 275,positionY + 235, diffPosition - 10, diffPosition - 10);
+  ellipse(positionX + 340,positionY + 250, diffPosition - 10, diffPosition - 10);
   
   //print(SimpleOpenNI.SKEL_HEAD);
 
