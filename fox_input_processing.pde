@@ -83,7 +83,7 @@ void setup() {
   blue = new Movie(this, "blue.MP4");
   blue.loop();
   blue.volume(0);
-  red = new Movie(this, "red.MP4");
+  red = new Movie(this, "pink.MP4");
   red.loop();
   red.volume(0);
   yellow = new Movie(this, "yellow.MP4");
@@ -132,10 +132,10 @@ float drawSkeleton(int userId) {
     positionY = int(convertedTorso.y);
 //    positionY = height/2;
   }
-  if(orangeFlag){}
-  if(blueFlag){}
-  if(redFlag){}
-  if(yellowFlag){}
+  if(orangeFlag){ fill(245,140,25,50); }
+  if(blueFlag){fill(140,252,254,50);}
+  if(redFlag){fill(250,135,192,50);}
+  if(yellowFlag){fill(245,240,45,50);}
   noStroke();
   ellipse(positionX + 340,positionY + 250, diffPosition - 10, diffPosition - 10);
   

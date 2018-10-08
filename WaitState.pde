@@ -12,8 +12,10 @@ class WaitState extends State {
     
     
     playerWait.play();
-    
-    image(blue, 260,140,760,640);
+    if(orangeFlag){image(orange, 260,140,760,640); }
+    if(blueFlag){image(blue, 260,140,760,640);}
+    if(redFlag){image(red, 260,140,760,640);}
+    if(yellowFlag){image(yellow, 260,140,760,640);}
     
     image(img, 181,80,77,86);
     textFont(text, 48);  
@@ -25,8 +27,19 @@ class WaitState extends State {
     text("The size is ", 100, 600);
     
     textFont(text, 80);  
-    text("Sorrow", 100, 320);
-    text("Blue", 100, 500);
+    if (orangeFlag){
+      text("Joy", 100, 320);
+      text("Orange", 100, 500);
+    }else if (blueFlag){
+      text("Sorrow", 100, 320);
+      text("Blue", 100, 500);
+    }else if (redFlag){
+      text("Anger", 100, 320);
+      text("Red", 100, 500);
+    }else if (yellowFlag){
+      text("Surprise", 100, 320);
+      text("Yellow", 100, 500);
+    }
     text("22cm", 100, 680);
     
     textAlign(CENTER);
