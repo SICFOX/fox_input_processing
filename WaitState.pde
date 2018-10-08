@@ -9,12 +9,27 @@ class WaitState extends State {
   void drawState() {
     background(29,175,241);
     fill(255);
-    image(img, 181,80,77,86);
-    textFont(text, 48);  
-    text("Please wait a munites", 600, 140);
+    
+    
     playerWait.play();
     
-    image(test, 340,250,640,480);
+    image(blue, 260,140,760,640);
+    
+    image(img, 181,80,77,86);
+    textFont(text, 48);  
+    text("Please wait a minute", 600, 140);
+    textAlign(LEFT);
+    textFont(text, 40);  
+    text("The expression is ", 100, 248);
+    text("The color is ", 100, 420);
+    text("The size is ", 100, 600);
+    
+    textFont(text, 80);  
+    text("Sorrow", 100, 320);
+    text("Blue", 100, 500);
+    text("22cm", 100, 680);
+    
+    textAlign(CENTER);
     
     if (waitFlag == true){
       String s = "senddata";
@@ -24,17 +39,9 @@ class WaitState extends State {
   }
 
   State decideState() {
-    if (key == CODED) {
-      if (keyCode == RIGHT) {  
-        println("右が押された");
-      } else if (keyCode == LEFT) {
-         println("左が押された");
-      }
-    }
-
     if (keyPressed && keyCode == RIGHT) {
       playerWait.close() ;
-      return new TitleState();
+      return new ThanksState();
     }else if(keyPressed && keyCode == LEFT){
       playerWait.close() ;
       return new HandState();

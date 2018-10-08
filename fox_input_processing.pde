@@ -16,7 +16,10 @@ State state;
 SimpleOpenNI  context;
 SimpleOpenNI  context2;
 
-Movie test;
+Movie blue;
+Movie red;
+Movie yellow;
+Movie orange;
 
 PImage img;
 PImage logo_text;
@@ -62,6 +65,7 @@ void setup() {
 
   stroke(255, 255, 255);
   strokeWeight(3);
+  noStroke();
   smooth();
   
   
@@ -70,9 +74,18 @@ void setup() {
   logo_text = loadImage("Logo_title.png");
   loading_img = loadImage("loading.png");
   text = loadFont("MrEavesModOT-Bold-200.vlw"); 
-  test = new Movie(this, "sample.MP4");
-  test.loop();
-  test.volume(0);
+  blue = new Movie(this, "blue.MP4");
+  blue.loop();
+  blue.volume(0);
+//  red = new Movie(this, "red.MP4");
+//  red.loop();
+//  red.volume(0);
+//  yellow = new Movie(this, "yellow.MP4");
+//  yellow.loop();
+//  yellow.volume(0);
+//  orange = new Movie(this, "yellow.MP4");
+//  orange.loop();
+//  orange.volume(0);
  
 }
 
@@ -115,6 +128,7 @@ float drawSkeleton(int userId) {
 //    positionY = height/2;
   }
   fill(0, 0, 255,50);
+  noStroke();
   ellipse(positionX + 340,positionY + 250, diffPosition - 10, diffPosition - 10);
   
   //print(SimpleOpenNI.SKEL_HEAD);
@@ -185,4 +199,14 @@ void clientEvent(Client c) {
 
 void movieEvent(Movie m) {
      m.read();
-   }
+}
+
+void rotateImage( int x, int y, PImage img, float deg ){ 
+     pushMatrix();
+     translate( x + img.width/2, y + img.height/2 );
+     rotate(radians( deg )); 
+     imageMode(CENTER); 
+     image( img, 0, 0,126,132 );
+     imageMode(CORNER); //⑥
+     popMatrix(); //⑦
+}

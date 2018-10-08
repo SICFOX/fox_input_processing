@@ -60,7 +60,7 @@ class ExpressionState extends State {
       text("Show me your face", 168, 348);
       textFont(text, 200);  
       text(str(1),172, 540);
-    }else if (countdown > 9000 && countdown < 11000){
+    }else if (countdown > 9000){
       playerPhoto.play();
       textFont(text, 40);  
       text("Wait a moment", 168, 348);
@@ -71,13 +71,9 @@ class ExpressionState extends State {
       rotateImage(-80, 220, loading_img, deg );
       deg = deg + 6;
       if( deg > 360) deg = 0;
-
-    }else if (countdown > 11000){
-      text("Thank you",width * 0.5, height * 0.5);
-      text("Save your face",width * 0.5, height * 0.7);
       
-      //print(expressionFlag);
-      if (expressionFlag == true){
+      if(countdown > 11000){
+        if (expressionFlag == true){
         String s = "savefaceimage";
         client.write(s);
         expressionFlag = false;
@@ -85,6 +81,8 @@ class ExpressionState extends State {
         nextState = true;
       }
 //      received = clientEvent();
+      }
+
     }
     
     switch(shoot) {
@@ -125,28 +123,5 @@ class ExpressionState extends State {
       return new AnalyzeState(); // go to ending
     } 
     return this;
-  }
-  
-  void rotateImage( int x, int y, PImage img, float deg ){ 
-     pushMatrix(); //①
- 
- //画像中央を回転の中心にする
-     translate( x + img.width/2, y + img.height/2 ); //②
- 
- //回転する
-     rotate(radians( deg )); //③
- 
- //回転の中心が画像中央なので、画像描画原点も画像中央にする
- //こうすると、(0,0)に配置すれば期待した位置に画像が置ける
- //これをしないと、⑤のimage()命令で配置する座標計算がメンドクサイ
-     imageMode(CENTER); //④
- 
- //画像を描画
-     image( img, 0, 0,126,132 ); //⑤
- 
- //画像描画原点を元（画像の左上隅）に戻す
-     imageMode(CORNER); //⑥
- 
-     popMatrix(); //⑦
   }
 }
