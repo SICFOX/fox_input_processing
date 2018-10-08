@@ -19,6 +19,9 @@ SimpleOpenNI  context2;
 Movie test;
 
 PImage img;
+PImage logo_text;
+PImage loading_img;
+PImage expression_img;
 
 boolean expressionFlag;
 boolean handFlag;
@@ -61,8 +64,12 @@ void setup() {
   strokeWeight(3);
   smooth();
   
+  
+  
   img = loadImage("Fox_logo.png");
-  text = loadFont("MrEavesSanOT-Bold-144.vlw"); 
+  logo_text = loadImage("Logo_title.png");
+  loading_img = loadImage("loading.png");
+  text = loadFont("MrEavesModOT-Bold-200.vlw"); 
   test = new Movie(this, "test02.MP4");
   test.loop();
   test.volume(0);

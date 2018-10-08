@@ -42,6 +42,10 @@ class HandState extends State {
 
 
     //print(context.rightHandPos.x);
+    
+     image(img, 181,80,77,86);
+    textFont(text, 48);  
+    text("Adjust the size of the cotton candy", 600, 140);
 
     int[] userList = context.getUsers();
     for (int i=0; i<userList.length; i++) {
