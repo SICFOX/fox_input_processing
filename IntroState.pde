@@ -5,7 +5,7 @@ class IntroState extends State {
   int baseTime;
   
   IntroState() {
-    playerIntro = minim.loadFile("intro.mp3");
+    playerIntro = minim.loadFile("audio/01intro.mp3");
     nextState = false;
     baseTime = millis();
   }
@@ -17,7 +17,7 @@ class IntroState extends State {
     playerIntro.play();
     //text("Press 'e' to restart.", width * 0.5, height * 0.7);
     int countdown = millis() - baseTime;
-    if(countdown > 7000){
+    if(countdown > 19000){
       nextState = true;
     }
   }

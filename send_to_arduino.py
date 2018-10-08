@@ -177,7 +177,7 @@ if __name__ == '__main__':
                         cotton_size_str = data.decode()  #Data input
                         # print(cotton_size_str)
                         cotton_size = int(cotton_size_str)
-                        print(cotton_size + "cm")
+                        print(str(cotton_size) + "cm")
 
                         size_adjustment(cotton_size)
 

@@ -81,17 +81,9 @@ void setup() {
   loading_img = loadImage("loading.png");
   text = loadFont("MrEavesModOT-Bold-200.vlw"); 
   blue = new Movie(this, "blue.MP4");
-  blue.loop();
-  blue.volume(0);
   red = new Movie(this, "pink.MP4");
-  red.loop();
-  red.volume(0);
   yellow = new Movie(this, "yellow.MP4");
-  yellow.loop();
-  yellow.volume(0);
   orange = new Movie(this, "orange.MP4");
-  orange.loop();
-  orange.volume(0);
  
 }
 
