@@ -16,8 +16,19 @@ class AnalyzeState extends State {
     text("The size is ", 840, 400);
     
     textFont(text, 80);  
-    text("Surprise", 200, 470);
-    text("Yellow", 540, 470);
+    if (orangeFlag){
+      text("Joy", 200, 470);
+      text("Orange", 540, 470);
+    }else if (blueFlag){
+      text("Sorrow", 200, 470);
+      text("Blue", 540, 470);
+    }else if (redFlag){
+      text("Anger", 200, 470);
+      text("Red", 540, 470);
+    }else if (yellowFlag){
+      text("Surprise", 200, 470);
+      text("Yellow", 540, 470);
+    }
     text("20cm", 850,  470);
   }
   

@@ -117,9 +117,10 @@ class ExpressionState extends State {
     }
     
     
-    if (nextState) { // if ellapsed time is larger than
+    if (goState) { // if ellapsed time is larger than
       playerExpression.close();
-      playerPhoto.close() ;
+      playerPhoto.close();
+      goState = false;
       return new AnalyzeState(); // go to ending
     } 
     return this;

@@ -31,6 +31,13 @@ boolean expressionFlag;
 boolean handFlag;
 boolean waitFlag;
 
+boolean yellowFlag;
+boolean blueFlag;
+boolean redFlag;
+boolean orangeFlag;
+
+boolean goState;
+
 PFont text;
 
 
@@ -46,6 +53,11 @@ void setup() {
   expressionFlag = true;
   handFlag = true;
   waitFlag = true;
+  yellowFlag = false;
+  blueFlag = false;
+  redFlag = false;
+  orangeFlag = false;
+  goState = false;
 
   context = new SimpleOpenNI(this);
   if (context.isInit() == false) {
@@ -71,22 +83,22 @@ void setup() {
   blue = new Movie(this, "blue.MP4");
   blue.loop();
   blue.volume(0);
-//  red = new Movie(this, "red.MP4");
-//  red.loop();
-//  red.volume(0);
-//  yellow = new Movie(this, "yellow.MP4");
-//  yellow.loop();
-//  yellow.volume(0);
-//  orange = new Movie(this, "yellow.MP4");
-//  orange.loop();
-//  orange.volume(0);
+  red = new Movie(this, "red.MP4");
+  red.loop();
+  red.volume(0);
+  yellow = new Movie(this, "yellow.MP4");
+  yellow.loop();
+  yellow.volume(0);
+  orange = new Movie(this, "orange.MP4");
+  orange.loop();
+  orange.volume(0);
  
 }
 
 void draw() {
   background(29,175,241);
   state = state.doState();
-  println( state.getClass().getName() );
+  //println( state.getClass().getName() );
 }
 
 // draw the skeleton with the selected joints
@@ -120,7 +132,10 @@ float drawSkeleton(int userId) {
     positionY = int(convertedTorso.y);
 //    positionY = height/2;
   }
-  fill(0, 0, 255,50);
+  if(orangeFlag){}
+  if(blueFlag){}
+  if(redFlag){}
+  if(yellowFlag){}
   noStroke();
   ellipse(positionX + 340,positionY + 250, diffPosition - 10, diffPosition - 10);
   
@@ -172,21 +187,50 @@ void clientEvent(Client c) {
   String s = c.readString();
   if (s != null) {
     println("client receieved: " + s);
-    //println((char)s);
-    print(unbinary(s));
-    if (unbinary(s) == 1){
+    print(s);
+//    print(unbinary(s));
+    if (int(s) == 0){
+      print("0だよ");
+      orangeFlag = false;
+      blueFlag = false;
+      redFlag = false;
+      yellowFlag = true;
       expressionFlag = false;
       waitFlag = true;
-    }
-    if (unbinary(s) == 2){
+    }else if (int(s) == 1){
+      print("1だよ");
+      orangeFlag = true;
+      blueFlag = false;
+      redFlag = false;
+      yellowFlag = false;
+      expressionFlag = false;
+      waitFlag = true;
+    }else if (int(s) == 2){
+      print("2だよ");
+      orangeFlag = false;
+      blueFlag = true;
+      redFlag = false;
+      yellowFlag = false;
+      expressionFlag = false;
+      waitFlag = true;
+    }else if (int(s) == 3){
+      print("3だよ");
+      orangeFlag = false;
+      blueFlag = false;
+      redFlag = true;
+      yellowFlag = false;
+      expressionFlag = false;
+      waitFlag = true;
+    }else if (int(s) == 4){
+      print("4だよ");
       handFlag = false;
-    }
-    if (unbinary(s) == 3){
+    }else if (int(s) == 5){
+      print("5だよ");
       waitFlag = false;
       expressionFlag = true;
       handFlag = true;
-      
     }
+    goState = true;
   }
 }
 
@@ -200,6 +244,6 @@ void rotateImage( int x, int y, PImage img, float deg ){
      rotate(radians( deg )); 
      imageMode(CENTER); 
      image( img, 0, 0,126,132 );
-     imageMode(CORNER); //⑥
-     popMatrix(); //⑦
+     imageMode(CORNER); 
+     popMatrix(); 
 }
