@@ -108,13 +108,6 @@ class ExpressionState extends State {
   }
 
   State decideState() {
-    if (key == CODED) {
-      if (keyCode == RIGHT) {  
-        println("右が押された！");
-      } else if (keyCode == LEFT) {
-         println("左が押された！");
-      }
-    }
     if (keyPressed && keyCode == RIGHT) {
       playerExpression.close();
       playerPhoto.close() ;
