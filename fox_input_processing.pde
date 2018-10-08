@@ -22,6 +22,10 @@ Movie red;
 Movie yellow;
 Movie orange;
 
+AudioPlayer playerCountOne;
+AudioPlayer playerCountTwo;
+AudioPlayer playerCountThree;
+
 PImage img;
 PImage logo_text;
 PImage loading_img;
@@ -124,10 +128,10 @@ float drawSkeleton(int userId) {
     positionY = int(convertedTorso.y);
 //    positionY = height/2;
   }
-  if(orangeFlag){ fill(245,140,25,50); }
-  if(blueFlag){fill(140,252,254,50);}
-  if(redFlag){fill(250,135,192,50);}
-  if(yellowFlag){fill(245,240,45,50);}
+  if(orangeFlag){ fill(245,140,25,80); }
+  if(blueFlag){fill(140,252,254,80);}
+  if(redFlag){fill(250,135,192,80);}
+  if(yellowFlag){fill(245,240,45,80);}
   noStroke();
   ellipse(positionX + 340,positionY + 250, diffPosition - 10, diffPosition - 10);
   

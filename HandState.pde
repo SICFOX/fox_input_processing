@@ -14,8 +14,8 @@ class HandState extends State {
 
 
   HandState() {
-    playerHand = minim.loadFile("hand_sign.mp3");
-    playerPhoto = minim.loadFile("camera_shutter.mp3");
+    playerHand = minim.loadFile("audio/04upload02.mp3");
+    playerPhoto = minim.loadFile("audio/05kinect.mp3");
     userClr = new color[] {
       color(255, 0, 0),
       color(0, 255, 0),
@@ -194,6 +194,7 @@ class HandState extends State {
     }
     if (nextState) {
       playerHand.close() ;
+      nextState = false;
       return new WaitState();
     }
     return this;

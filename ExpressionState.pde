@@ -11,8 +11,11 @@ class ExpressionState extends State {
   int deg;
   
   ExpressionState() {
-    playerExpression = minim.loadFile("face_expression.mp3");
-    playerPhoto = minim.loadFile("camera_shutter.mp3");
+    playerExpression = minim.loadFile("audio/02video.mp3");
+    playerPhoto = minim.loadFile("audio/camera_shutter.mp3");
+    playerCountThree = minim.loadFile("audio/three.mp3");
+    playerCountTwo = minim.loadFile("audio/two.mp3");
+    playerCountOne = minim.loadFile("audio/one.mp3");
     shot_count = 1;
     shoot = 0;
     baseTime = millis();
@@ -39,28 +42,37 @@ class ExpressionState extends State {
     
     
     int countdown = millis() - baseTime;
-    if(countdown < 6000){
+    if(countdown > 10500){
+      playerExpression.close();
+    }
+    if(countdown < 12000){
       textFont(text, 40);  
       text("Show me your face", 168, 348);
       textFont(text, 72);  
       text("Contdown",164, 457);
       text("here",172, 520);
-    }else if(countdown < 7000){
+    }else if(countdown < 13000){
+      playerCountThree.play();
       textFont(text, 40);  
       text("Show me your face", 168, 348);
       textFont(text, 200);  
       text(str(3),172, 540);
-    }else if (countdown < 8000){
+    }else if (countdown < 14000){
+      playerCountThree.close();
+      playerCountTwo.play();
       textFont(text, 40);  
       text("Show me your face", 168, 348);
       textFont(text, 200);  
       text(str(2),172, 540);
-    }else if (countdown < 9000){
+    }else if (countdown < 15000){
+      playerCountTwo.close();
+      playerCountOne.play();
       textFont(text, 40);  
       text("Show me your face", 168, 348);
       textFont(text, 200);  
       text(str(1),172, 540);
-    }else if (countdown > 9000){
+    }else if (countdown > 15000){
+      playerCountOne.close();
       playerPhoto.play();
       textFont(text, 40);  
       text("Wait a moment", 168, 348);
@@ -72,7 +84,7 @@ class ExpressionState extends State {
       deg = deg + 6;
       if( deg > 360) deg = 0;
       
-      if(countdown > 11000){
+      if(countdown > 17000){
         if (expressionFlag == true){
         String s = "savefaceimage";
         client.write(s);
@@ -87,7 +99,7 @@ class ExpressionState extends State {
     
     switch(shoot) {
       case 0:
-        if (countdown > 9000) {
+        if (countdown > 15000) {
           print("Photo!!");
           shoot = 1;
         }
@@ -118,7 +130,7 @@ class ExpressionState extends State {
     
     
     if (goState) { // if ellapsed time is larger than
-      playerExpression.close();
+//      playerExpression.close();
       playerPhoto.close();
       goState = false;
       return new AnalyzeState(); // go to ending
