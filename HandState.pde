@@ -87,7 +87,8 @@ class HandState extends State {
             if (cm_diff > 50 || cm_diff < 15){
               fill(29,175,241);
               noStroke();
-              rect(0,300, 300, 160);
+              //stroke(255,0,0);
+              rect(20,300, 300, 124);
               fill(255,0,0);
               textFont(text, 120); 
               text("Over",188,420);
@@ -97,18 +98,20 @@ class HandState extends State {
             fill(29,175,241);
             noStroke();
             rect(0,300, 300, 100);
-            rect(0,540, 360, 200);
+            rect(0,540, 310, 200);
             fill(255);
             textFont(text, 120);  
             text(str(cm_diff)+"cm",172,420 );
             if (cm_diff > 50 || cm_diff < 15){
               fill(29,175,241);
               noStroke();
-              rect(0,300, 300, 300);
+              //stroke(255,0,0);
+              rect(20,300, 300, 124);
               fill(255,0,0);
               textFont(text, 120); 
               text("Over",188,420);
             }
+            fill(255);
             textFont(text, 200);  
             text(str(3),172, 680);
           } else if (countdown < 16000) {
@@ -117,18 +120,20 @@ class HandState extends State {
             fill(29,175,241);
             noStroke();
             rect(0,300, 300, 100);
-            rect(0,540, 360, 200);
+            rect(0,540, 310, 200);
             fill(255);
             textFont(text, 120);  
             text(str(cm_diff)+"cm",172,420 );
             if (cm_diff > 50 || cm_diff < 15){
               fill(29,175,241);
               noStroke();
-              rect(0,300, 300, 300);
+              //stroke(255,0,0);
+              rect(20,300, 300, 124);
               fill(255,0,0);
               textFont(text, 120); 
               text("Over",188,420);
             }
+            fill(255);
             textFont(text, 200);  
             text(str(2),172, 680);
           } else if (countdown < 17000) {
@@ -137,7 +142,7 @@ class HandState extends State {
             fill(29,175,241);
             noStroke();
             rect(0,300, 300, 100);
-            rect(0,540, 360, 200);
+            rect(0,540, 310, 200);
             fill(255);
             saved_size = cm_diff;
             textFont(text, 120);  
@@ -145,11 +150,13 @@ class HandState extends State {
             if (cm_diff > 50 || cm_diff < 15){
               fill(29,175,241);
               noStroke();
-              rect(0,300, 300, 300);
+              //stroke(255,0,0);
+              rect(20,300, 300, 124);
               fill(255,0,0);
               textFont(text, 120); 
               text("Over",188,420);
             }
+            fill(255);
             textFont(text, 200);  
             text(str(1),172, 680);
           } else if (countdown > 17000) {
@@ -234,7 +241,7 @@ class HandState extends State {
       playerHand.close() ;
       return new AnalyzeState();
     }
-    if (nextState) {
+    if (goState) {
       playerHand.close() ;
       nextState = false;
       goState = false;
