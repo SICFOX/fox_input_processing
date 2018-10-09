@@ -13,8 +13,7 @@ class AnalyzeState extends State {
   
   void drawState() {
     playerAnalyze.play();
-    
-    
+      
     background(29,175,241);
     fill(255);
     image(img, 181,80,77,86);
@@ -46,30 +45,22 @@ class AnalyzeState extends State {
     if(countdown > 9000){
       playerAnalyze.close();
     }
-    if (countdown > 14000){
+    if (countdown > 13000){
       nextState = true;
-    }
-    
-    
+    } 
   }
   
   State decideState() {
     if (keyPressed && keyCode == RIGHT) {
-//      playerExpression.close();
-//      playerPhoto.close() ;
       playerAnalyze.close();
       return new HandState();
     }else if(keyPressed && keyCode == LEFT){
-//      playerExpression.close();
-//      playerPhoto.close() ;
       playerAnalyze.close();
       return new ExpressionState();
     }
-    
-    
-    if (nextState) { // if ellapsed time is larger than
+    if (nextState) { 
       playerAnalyze.close();
-      return new HandState(); // go to ending
+      return new HandState(); 
     } 
     return this;
   }
