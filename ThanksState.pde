@@ -7,10 +7,12 @@ class ThanksState extends State {
   void drawState() {
     playerThanks.play();
     background(29,175,241);
-    image(img, 440,280,129,143);
-    textFont(text, 72);  
+    image(img, 440,180,129,143);
     textAlign(LEFT);
-    text("Thank you very much", 215, 500);
+    textFont(text, 48);  
+    text("Thank you very much", 320, 400);
+    textFont(text, 72);  
+    text("#Fuzzy Order eXperience", 160, 500);
     textAlign(CENTER);
   }
 

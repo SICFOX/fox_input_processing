@@ -104,7 +104,7 @@ class HandState extends State {
             if (cm_diff > 50 || cm_diff < 15){
               fill(29,175,241);
               noStroke();
-              rect(0,300, 300, 200);
+              rect(0,300, 300, 300);
               fill(255,0,0);
               textFont(text, 120); 
               text("Over",188,420);
@@ -124,7 +124,7 @@ class HandState extends State {
             if (cm_diff > 50 || cm_diff < 15){
               fill(29,175,241);
               noStroke();
-              rect(0,300, 300, 200);
+              rect(0,300, 300, 300);
               fill(255,0,0);
               textFont(text, 120); 
               text("Over",188,420);
@@ -145,7 +145,7 @@ class HandState extends State {
             if (cm_diff > 50 || cm_diff < 15){
               fill(29,175,241);
               noStroke();
-              rect(0,300, 300, 200);
+              rect(0,300, 300, 300);
               fill(255,0,0);
               textFont(text, 120); 
               text("Over",188,420);

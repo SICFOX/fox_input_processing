@@ -16,7 +16,7 @@ class IntroState extends State {
     text("I'm FOX", 560, 410);
     playerIntro.play();
     int countdown = millis() - baseTime;
-    if(countdown > 19000){
+    if(countdown > 11000){
       nextState = true;
     }
   }
