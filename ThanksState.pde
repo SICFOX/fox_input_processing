@@ -1,5 +1,11 @@
 class ThanksState extends State {
+  AudioPlayer playerThanks;
+  
+  ThanksState() {
+    playerThanks = minim.loadFile("audio/07goodbye.mp3");
+  }
   void drawState() {
+    playerThanks.play();
     background(29,175,241);
     image(img, 440,280,129,143);
     textFont(text, 72);  

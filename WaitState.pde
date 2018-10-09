@@ -2,7 +2,7 @@ class WaitState extends State {
   AudioPlayer playerWait;
   
   WaitState() {
-   playerWait = minim.loadFile("wait.mp3");
+   playerWait = minim.loadFile("audio/06wait.mp3");
    waitFlag = true;
    orange.noLoop();
    blue.noLoop();

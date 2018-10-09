@@ -8,6 +8,7 @@ class AnalyzeState extends State {
   AnalyzeState() {
      playerAnalyze = minim.loadFile("audio/03analyze.mp3");
      nextState = false;
+     baseTime = millis();
   }
   
   void drawState() {
@@ -41,12 +42,13 @@ class AnalyzeState extends State {
     }
     text("20cm", 850,  470);
     
-//    int countdownAnalyze = millis() - baseTime;
-//    if(countdownAnalyze > 9000){
-//      playerAnalyze.close();
-//    }else if (countdownAnalyze > 14000){
-//      nextState = true;
-//    }
+    int countdown = millis() - baseTime;
+    if(countdown > 9000){
+      playerAnalyze.close();
+    }
+    if (countdown > 14000){
+      nextState = true;
+    }
     
     
   }
@@ -65,10 +67,10 @@ class AnalyzeState extends State {
     }
     
     
-//    if (nextState) { // if ellapsed time is larger than
-//      playerAnalyze.close();
-//      return new HandState(); // go to ending
-//    } 
+    if (nextState) { // if ellapsed time is larger than
+      playerAnalyze.close();
+      return new HandState(); // go to ending
+    } 
     return this;
   }
   
