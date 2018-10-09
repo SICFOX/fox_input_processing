@@ -84,15 +84,31 @@ class HandState extends State {
             fill(255);
             textFont(text, 120); 
             text(str(cm_diff)+"cm",188,420);
+            if (cm_diff > 50 || cm_diff < 15){
+              fill(29,175,241);
+              noStroke();
+              rect(0,300, 300, 160);
+              fill(255,0,0);
+              textFont(text, 120); 
+              text("Over",188,420);
+            }
           } else if (countdown < 15000) {
             playerCountThree.play();
             fill(29,175,241);
             noStroke();
             rect(0,300, 300, 100);
-            rect(0,540, 300, 200);
+            rect(0,540, 360, 200);
             fill(255);
             textFont(text, 120);  
             text(str(cm_diff)+"cm",172,420 );
+            if (cm_diff > 50 || cm_diff < 15){
+              fill(29,175,241);
+              noStroke();
+              rect(0,300, 300, 200);
+              fill(255,0,0);
+              textFont(text, 120); 
+              text("Over",188,420);
+            }
             textFont(text, 200);  
             text(str(3),172, 680);
           } else if (countdown < 16000) {
@@ -101,10 +117,18 @@ class HandState extends State {
             fill(29,175,241);
             noStroke();
             rect(0,300, 300, 100);
-            rect(0,540, 300, 200);
+            rect(0,540, 360, 200);
             fill(255);
             textFont(text, 120);  
             text(str(cm_diff)+"cm",172,420 );
+            if (cm_diff > 50 || cm_diff < 15){
+              fill(29,175,241);
+              noStroke();
+              rect(0,300, 300, 200);
+              fill(255,0,0);
+              textFont(text, 120); 
+              text("Over",188,420);
+            }
             textFont(text, 200);  
             text(str(2),172, 680);
           } else if (countdown < 17000) {
@@ -113,11 +137,19 @@ class HandState extends State {
             fill(29,175,241);
             noStroke();
             rect(0,300, 300, 100);
-            rect(0,540, 300, 200);
+            rect(0,540, 360, 200);
             fill(255);
             saved_size = cm_diff;
             textFont(text, 120);  
             text(str(saved_size)+"cm",172,420 );
+            if (cm_diff > 50 || cm_diff < 15){
+              fill(29,175,241);
+              noStroke();
+              rect(0,300, 300, 200);
+              fill(255,0,0);
+              textFont(text, 120); 
+              text("Over",188,420);
+            }
             textFont(text, 200);  
             text(str(1),172, 680);
           } else if (countdown > 17000) {
