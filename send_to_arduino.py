@@ -116,18 +116,23 @@ def send_to_arduino(arduino_control,megapi_control):
     print(arduino_control)
     ser.write(arduino_control)
 
-    if cotton_size >= 0 and cotton_size <= 24:
+    #if cotton_size >= 0 and cotton_size <= 24:
         #small size
-        sleep(10)
-    elif cotton_size > 24 and cotton_size <= 30:
+    #    sleep(10)
+    #elif cotton_size > 24 and cotton_size <= 30:
         #midium size
-        sleep(15)
-    else:
+    #    sleep(15)
+    #else:
         #big size
-        sleep(20)
-
-    print(megapi_control)
-    ser2.write(megapi_control)
+    #    sleep(20)
+    
+    delay_time = ser.read(3)
+    print(delay_time)
+    if not delay_time:
+        delay_time = ser.read(3)
+    else:
+        print(megapi_control)
+        ser2.write(megapi_control)
     sleep(5)
 
 
