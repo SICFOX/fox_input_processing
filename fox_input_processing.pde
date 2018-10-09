@@ -186,7 +186,6 @@ void clientEvent(Client c) {
     print(s);
 //    print(unbinary(s));
     if (int(s) == 0){
-      print("0だよ");
       orangeFlag = false;
       blueFlag = false;
       redFlag = false;
@@ -194,7 +193,6 @@ void clientEvent(Client c) {
       expressionFlag = false;
       waitFlag = true;
     }else if (int(s) == 1){
-      print("1だよ");
       orangeFlag = true;
       blueFlag = false;
       redFlag = false;
@@ -202,7 +200,6 @@ void clientEvent(Client c) {
       expressionFlag = false;
       waitFlag = true;
     }else if (int(s) == 2){
-      print("2だよ");
       orangeFlag = false;
       blueFlag = true;
       redFlag = false;
@@ -210,7 +207,6 @@ void clientEvent(Client c) {
       expressionFlag = false;
       waitFlag = true;
     }else if (int(s) == 3){
-      print("3だよ");
       orangeFlag = false;
       blueFlag = false;
       redFlag = true;

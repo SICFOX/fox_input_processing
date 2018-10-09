@@ -20,6 +20,7 @@ class ExpressionState extends State {
     shoot = 0;
     baseTime = millis();
     nextState = false;
+    goState = false;
     expressionFlag = true;
   }
   

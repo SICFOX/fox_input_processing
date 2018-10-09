@@ -35,6 +35,7 @@ class HandState extends State {
     background(29,175,241);
     baseTime = millis();
     nextState = false;
+    goState = false;
     handFlag = true;
   }
 
@@ -42,17 +43,12 @@ class HandState extends State {
   void drawState() {
     playerHand.play();
 
-
     context.update();
     //デバッグモード
     image(context.userImage(),340, 250);
     image(context.rgbImage(),340, 250);
     fill(255);
-    //text("Please hand gesture", width * 0.5, height * 0.5);
 
-
-    //print(context.rightHandPos.x);
-    
     image(img, 181,80,77,86);
     textFont(text, 48);  
     text("Adjust the size of the cotton candy", 600, 140);
@@ -66,8 +62,6 @@ class HandState extends State {
     text("Contdown",164, 600);
     text("here",172, 680);
     
-    
-
     int[] userList = context.getUsers();
     for (int i=0; i<userList.length; i++) {
       if (context.isTrackingSkeleton(userList[i])) {
@@ -170,7 +164,7 @@ class HandState extends State {
 
                 case 2:
                     break;
-                    }
+             }
           }
         }
       } else {
@@ -211,6 +205,7 @@ class HandState extends State {
     if (nextState) {
       playerHand.close() ;
       nextState = false;
+      goState = false;
       return new WaitState();
     }
     return this;

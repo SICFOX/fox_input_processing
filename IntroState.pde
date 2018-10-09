@@ -15,7 +15,6 @@ class IntroState extends State {
     textFont(text, 72);  
     text("I'm FOX", 560, 410);
     playerIntro.play();
-    //text("Press 'e' to restart.", width * 0.5, height * 0.7);
     int countdown = millis() - baseTime;
     if(countdown > 19000){
       nextState = true;
@@ -30,7 +29,6 @@ class IntroState extends State {
       playerIntro.close() ;
       return new TitleState();
     }
-    
     if (nextState) {
       playerIntro.close() ;
       return new ExpressionState();
