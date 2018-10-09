@@ -175,15 +175,14 @@ class HandState extends State {
               rotateImage(-80, 340, loading_img, deg );
               deg = deg + 6;
               if( deg > 360) deg = 0;
-            if (handFlag == true) {
+            if (countdown > 19000){
+              if (handFlag == true) {
               String s = str(saved_size);
               client.write(s);
               handFlag = false;
               //delay(3000);
               nextState = true;
             }
-            if (countdown > 169000){
-              nextState = true;
             }
             switch(shoot) {
               case 0:
@@ -241,7 +240,7 @@ class HandState extends State {
       playerHand.close() ;
       return new AnalyzeState();
     }
-    if (goState) {
+    if (nextState) {
       playerHand.close() ;
       nextState = false;
       goState = false;
