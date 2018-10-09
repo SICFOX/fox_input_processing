@@ -115,18 +115,18 @@ class HandState extends State {
             rect(0,300, 300, 100);
             rect(0,540, 300, 200);
             fill(255);
+            saved_size = cm_diff;
             textFont(text, 120);  
-            text(str(cm_diff)+"cm",172,420 );
+            text(str(saved_size)+"cm",172,420 );
             textFont(text, 200);  
             text(str(1),172, 680);
-            saved_size = cm_diff;
           } else if (countdown > 17000) {
               fill(29,175,241);
               noStroke();
               rect(0,320, 320, 400);
               fill(255);
               textFont(text, 120);  
-              text(str(cm_diff)+"cm",172,420 );
+              text(str(saved_size)+"cm",172,420 );
               textFont(text, 40);  
               text("Wait a moment", 168, 508);
               if (shoot == 2){
