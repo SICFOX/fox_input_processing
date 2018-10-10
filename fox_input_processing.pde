@@ -30,6 +30,8 @@ PImage img;
 PImage logo_text;
 PImage loading_img;
 PImage expression_img;
+PImage bottle_image;
+PImage smile_image;
 
 boolean expressionFlag;
 boolean handFlag;
@@ -85,6 +87,8 @@ void setup() {
   img = loadImage("Fox_logo.png");
   logo_text = loadImage("Logo_title.png");
   loading_img = loadImage("loading.png");
+  bottle_image = loadImage("bottle.png");
+  smile_image = loadImage("smile.png");
   text = loadFont("MrEavesModOT-Bold-200.vlw"); 
   blue = new Movie(this, "blue.MP4");
   red = new Movie(this, "pink.MP4");
