@@ -21,25 +21,27 @@ class AnalyzeState extends State {
     text("Analyzing is completed", 600, 140);
     
     textFont(text, 40);  
-    text("The expression is ", 200, 400);
-    text("The color is ", 525, 400);
-    text("The size is ", 840, 400);
-    
+    text("The expression is ", 180, 400);
+    text("The color is ", 500, 400);
+    text("The size is ", 820, 400);
+    textAlign(LEFT);
     textFont(text, 80);  
     if (orangeFlag){
-      text("Joy", 200, 470);
-      text("Orange", 540, 470);
+      text("Joy", 60, 470);
+      text("Orange", 420, 470);
     }else if (blueFlag){
-      text("Sorrow", 200, 470);
-      text("Blue", 540, 470);
+      text("Sorrow",60, 470);
+      text("Blue", 420, 470);
     }else if (redFlag){
-      text("Anger", 200, 470);
-      text("Red", 540, 470);
+      text("Anger", 60, 470);
+      text("Red", 420, 470);
     }else if (yellowFlag){
-      text("Surprise", 200, 470);
-      text("Yellow", 540, 470);
+      text("Surprise", 60, 470);
+      text("Yellow", 420, 470);
     }
-    text("20cm", 850,  470);
+    text("20cm", 740,  470);
+    
+    textAlign(CENTER);
     
     int countdown = millis() - baseTime;
     if(countdown > 9000){
