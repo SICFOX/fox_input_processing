@@ -29,9 +29,9 @@ megapi_control = ""
 
 # #Serial Port
 # #Arduino
-ser = serial.Serial('/dev/cu.usbmodem14131', 9600)
+# ser = serial.Serial('/dev/cu.usbmodem14131', 9600)
 # #MegaPi
-ser2 = serial.Serial('/dev/cu.wchusbserial14110', 9600)
+# ser2 = serial.Serial('/dev/cu.wchusbserial14110', 9600)
 
 def vision_api():
     image_filenames = ['./img/img1.jpg']
@@ -157,13 +157,17 @@ if __name__ == '__main__':
                     if data == b"savefaceimage":
                         # from Processing receive ImageData
                         vision_api()
-                        arduino_control = bytes(
-                        arduino_input[0] + ',' + arduino_input[1], 'utf-8')
+                        arduino_control = bytes(arduino_input[0] + ',' + arduino_input[1], 'utf-8')
                         megapi_control = bytes(megapi_input[0], 'utf-8')
                         print("APIから感情を分析しました")
                         print(arduino_control)
                         print(megapi_control)
-                        conn.sendall(b'1')
+                        #conn.sendall(b'1')
+                        print(b'1')
+                        #print(bytes(arduino_input[0]))
+                        # conn.sendall(bytes(arduino_input[0],'utf-8'))
+                        conn.send(arduino_input[0].encode('utf-8'))
+                        #conn.sendall(b'3')
 
                     elif data == b"senddata":
                         # Arduinoにシリアル通信
@@ -171,8 +175,7 @@ if __name__ == '__main__':
                         print("Arduinoにデータを送信しました")
                         print(arduino_control)
                         print(megapi_control)
-
-                        conn.sendall(b'3')
+                        conn.send("5".encode('utf-8'))
 
                     else:
                         # from Processing receive Cotton Candy Size
@@ -190,4 +193,4 @@ if __name__ == '__main__':
                         print(arduino_control)
                         print(megapi_control)
 
-                        conn.sendall(b'2')
+                        conn.send("4".encode('utf-8'))

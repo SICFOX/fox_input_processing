@@ -8,6 +8,7 @@ class ExpressionState extends State {
   int baseTime;
   String received;
   boolean nextState;
+  int deg;
   
   ExpressionState() {
     playerExpression = minim.loadFile("face_expression.mp3");
@@ -25,8 +26,12 @@ class ExpressionState extends State {
     
     
     context.update();
-    background(0,183,241);
-    image(context.rgbImage(), 275, 235);
+    background(29,175,241);
+    image(context.rgbImage(), 340, 250);
+    
+    image(img, 181,80,77,86);
+    textFont(text, 48);  
+    text("Take a picture with contdown", 600, 140);
     
     
     //text("Press 'h' to restart.", width * 0.5, height * 0.7);
@@ -35,25 +40,40 @@ class ExpressionState extends State {
     
     int countdown = millis() - baseTime;
     if(countdown < 6000){
-      text("Show your face me", width * 0.5, height * 0.5);
-      text("Take your picture",width * 0.5, height * 0.7);
+      textFont(text, 40);  
+      text("Show me your face", 168, 348);
+      textFont(text, 72);  
+      text("Contdown",164, 457);
+      text("here",172, 520);
     }else if(countdown < 7000){
-      text("Show your face me", width * 0.5, height * 0.5);
-      text("countdown : " + str(3),width * 0.5, height * 0.7);
+      textFont(text, 40);  
+      text("Show me your face", 168, 348);
+      textFont(text, 200);  
+      text(str(3),172, 540);
     }else if (countdown < 8000){
-      text("Show your face me", width * 0.5, height * 0.5);
-      text("countdown : " + str(2),width * 0.5, height * 0.7);
+      textFont(text, 40);  
+      text("Show me your face", 168, 348);
+      textFont(text, 200);  
+      text(str(2),172, 540);
     }else if (countdown < 9000){
-      text("Show your face me", width * 0.5, height * 0.5);
-      text("countdown : " + str(1),width * 0.5, height * 0.7);
-    }else if (countdown > 9000 && countdown < 11000){
+      textFont(text, 40);  
+      text("Show me your face", 168, 348);
+      textFont(text, 200);  
+      text(str(1),172, 540);
+    }else if (countdown > 9000){
       playerPhoto.play();
-    }else if (countdown > 11000){
-      text("Thank you",width * 0.5, height * 0.5);
-      text("Save your face",width * 0.5, height * 0.7);
+      textFont(text, 40);  
+      text("Wait a moment", 168, 348);
+      if (shoot == 2){
+        expression_img = loadImage("./img/img1.jpg");
+        image(expression_img, 340, 250);
+      }
+      rotateImage(-80, 220, loading_img, deg );
+      deg = deg + 6;
+      if( deg > 360) deg = 0;
       
-      //print(expressionFlag);
-      if (expressionFlag == true){
+      if(countdown > 11000){
+        if (expressionFlag == true){
         String s = "savefaceimage";
         client.write(s);
         expressionFlag = false;
@@ -61,6 +81,8 @@ class ExpressionState extends State {
         nextState = true;
       }
 //      received = clientEvent();
+      }
+
     }
     
     switch(shoot) {
@@ -71,7 +93,7 @@ class ExpressionState extends State {
         }
         break;
       case 1:
-        PImage saveImage = get(0, 0, 640, 480);
+        PImage saveImage = get(340, 250, 640, 480);
         //saveImage.save(System.getProperty("user.home") + "/Documents/中西研究会/UIST2018/fox_input_processing/img/img2.jpg");
         saveImage.save("./img/img1.jpg");
         print("Save img1.jpg");
@@ -84,17 +106,10 @@ class ExpressionState extends State {
   }
 
   State decideState() {
-    if (key == CODED) {
-      if (keyCode == RIGHT) {  
-        println("右が押された！");
-      } else if (keyCode == LEFT) {
-         println("左が押された！");
-      }
-    }
     if (keyPressed && keyCode == RIGHT) {
       playerExpression.close();
       playerPhoto.close() ;
-      return new HandState();
+      return new AnalyzeState();
     }else if(keyPressed && keyCode == LEFT){
       playerExpression.close();
       playerPhoto.close() ;
@@ -102,10 +117,11 @@ class ExpressionState extends State {
     }
     
     
-    if (nextState) { // if ellapsed time is larger than
+    if (goState) { // if ellapsed time is larger than
       playerExpression.close();
-      playerPhoto.close() ;
-      return new HandState(); // go to ending
+      playerPhoto.close();
+      goState = false;
+      return new AnalyzeState(); // go to ending
     } 
     return this;
   }

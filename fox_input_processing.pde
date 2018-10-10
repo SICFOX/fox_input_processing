@@ -4,38 +4,60 @@ import ddf.minim.*;
 import ddf.minim.analysis.*;
 import ddf.minim.ugens.*;
 import ddf.minim.effects.*;
-
+import processing.video.*;
 import SimpleOpenNI.*;
-
 import processing.net.*;
 
 Minim minim;
+
+Client client;
+
 State state;
+
 SimpleOpenNI  context;
 SimpleOpenNI  context2;
 
+Movie blue;
+Movie red;
+Movie yellow;
+Movie orange;
+
 PImage img;
+PImage logo_text;
+PImage loading_img;
+PImage expression_img;
 
 boolean expressionFlag;
 boolean handFlag;
 boolean waitFlag;
 
-Client client;
+boolean yellowFlag;
+boolean blueFlag;
+boolean redFlag;
+boolean orangeFlag;
+
+boolean goState;
+
+PFont text;
+
 
 void setup() {
   client = new Client(this, "127.0.0.1", 5555);
   minim = new Minim(this);
-  //size(640, 480);
-  size(1000,800);
-  //size(displayWidth, displayHeight);
+  //size(640, 480); Kinectの映像サイズ
+  size(1000,750);
   textSize(32);
   textAlign(CENTER);
   fill(255);
   state = new TitleState();
-  
   expressionFlag = true;
   handFlag = true;
   waitFlag = true;
+  yellowFlag = false;
+  blueFlag = false;
+  redFlag = false;
+  orangeFlag = false;
+  goState = false;
 
   context = new SimpleOpenNI(this);
   if (context.isInit() == false) {
@@ -51,20 +73,36 @@ void setup() {
 
   stroke(255, 255, 255);
   strokeWeight(3);
+  noStroke();
   smooth();
   
   img = loadImage("Fox_logo.png");
+  logo_text = loadImage("Logo_title.png");
+  loading_img = loadImage("loading.png");
+  text = loadFont("MrEavesModOT-Bold-200.vlw"); 
+  blue = new Movie(this, "blue.MP4");
+  blue.loop();
+  blue.volume(0);
+  red = new Movie(this, "pink.MP4");
+  red.loop();
+  red.volume(0);
+  yellow = new Movie(this, "yellow.MP4");
+  yellow.loop();
+  yellow.volume(0);
+  orange = new Movie(this, "orange.MP4");
+  orange.loop();
+  orange.volume(0);
+ 
 }
 
 void draw() {
-  background(0,183,241);
+  background(29,175,241);
   state = state.doState();
-  println( state.getClass().getName() );
+  //println( state.getClass().getName() );
 }
 
 // draw the skeleton with the selected joints
 float drawSkeleton(int userId) {
-  // to get the 3d joint data
   PVector rightHandPos = new PVector();
   PVector leftHandPos = new PVector();
   PVector torsoPos = new PVector();
@@ -94,8 +132,12 @@ float drawSkeleton(int userId) {
     positionY = int(convertedTorso.y);
 //    positionY = height/2;
   }
-  fill(0, 0, 255,50);
-  ellipse(positionX + 275,positionY + 235, diffPosition - 10, diffPosition - 10);
+  if(orangeFlag){ fill(245,140,25,50); }
+  if(blueFlag){fill(140,252,254,50);}
+  if(redFlag){fill(250,135,192,50);}
+  if(yellowFlag){fill(245,240,45,50);}
+  noStroke();
+  ellipse(positionX + 340,positionY + 250, diffPosition - 10, diffPosition - 10);
   
   //print(SimpleOpenNI.SKEL_HEAD);
 
@@ -145,20 +187,63 @@ void clientEvent(Client c) {
   String s = c.readString();
   if (s != null) {
     println("client receieved: " + s);
-    //println((char)s);
-    print(unbinary(s));
-    if (unbinary(s) == 1){
+    print(s);
+//    print(unbinary(s));
+    if (int(s) == 0){
+      print("0だよ");
+      orangeFlag = false;
+      blueFlag = false;
+      redFlag = false;
+      yellowFlag = true;
       expressionFlag = false;
       waitFlag = true;
-    }
-    if (unbinary(s) == 2){
+    }else if (int(s) == 1){
+      print("1だよ");
+      orangeFlag = true;
+      blueFlag = false;
+      redFlag = false;
+      yellowFlag = false;
+      expressionFlag = false;
+      waitFlag = true;
+    }else if (int(s) == 2){
+      print("2だよ");
+      orangeFlag = false;
+      blueFlag = true;
+      redFlag = false;
+      yellowFlag = false;
+      expressionFlag = false;
+      waitFlag = true;
+    }else if (int(s) == 3){
+      print("3だよ");
+      orangeFlag = false;
+      blueFlag = false;
+      redFlag = true;
+      yellowFlag = false;
+      expressionFlag = false;
+      waitFlag = true;
+    }else if (int(s) == 4){
+      print("4だよ");
       handFlag = false;
-    }
-    if (unbinary(s) == 3){
+    }else if (int(s) == 5){
+      print("5だよ");
       waitFlag = false;
       expressionFlag = true;
       handFlag = true;
-      
     }
+    goState = true;
   }
+}
+
+void movieEvent(Movie m) {
+     m.read();
+}
+
+void rotateImage( int x, int y, PImage img, float deg ){ 
+     pushMatrix();
+     translate( x + img.width/2, y + img.height/2 );
+     rotate(radians( deg )); 
+     imageMode(CENTER); 
+     image( img, 0, 0,126,132 );
+     imageMode(CORNER); 
+     popMatrix(); 
 }
