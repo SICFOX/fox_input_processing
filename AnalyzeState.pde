@@ -1,9 +1,19 @@
 class AnalyzeState extends State {
   
+  AudioPlayer playerAnalyze;
+  
+  int baseTime;
+  boolean nextState;
+  
   AnalyzeState() {
+     playerAnalyze = minim.loadFile("audio/03analyze.mp3");
+     nextState = false;
+     baseTime = millis();
   }
   
   void drawState() {
+    playerAnalyze.play();
+      
     background(29,175,241);
     fill(255);
     image(img, 181,80,77,86);
@@ -30,25 +40,28 @@ class AnalyzeState extends State {
       text("Yellow", 540, 470);
     }
     text("20cm", 850,  470);
+    
+    int countdown = millis() - baseTime;
+    if(countdown > 9000){
+      playerAnalyze.close();
+    }
+    if (countdown > 13000){
+      nextState = true;
+    } 
   }
   
   State decideState() {
     if (keyPressed && keyCode == RIGHT) {
-//      playerExpression.close();
-//      playerPhoto.close() ;
+      playerAnalyze.close();
       return new HandState();
     }else if(keyPressed && keyCode == LEFT){
-//      playerExpression.close();
-//      playerPhoto.close() ;
+      playerAnalyze.close();
       return new ExpressionState();
     }
-    
-    
-//    if (nextState) { // if ellapsed time is larger than
-////      playerExpression.close();
-////      playerPhoto.close() ;
-//      return new HandState(); // go to ending
-//    } 
+    if (nextState) { 
+      playerAnalyze.close();
+      return new HandState(); 
+    } 
     return this;
   }
   

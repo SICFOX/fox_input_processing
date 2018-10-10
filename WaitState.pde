@@ -2,8 +2,28 @@ class WaitState extends State {
   AudioPlayer playerWait;
   
   WaitState() {
-   playerWait = minim.loadFile("wait.mp3");
+   playerWait = minim.loadFile("audio/06wait.mp3");
    waitFlag = true;
+   orange.noLoop();
+   blue.noLoop();
+   red.noLoop();
+   yellow.noLoop();
+   if(orangeFlag){
+     orange.loop();
+     orange.volume(0);
+   }
+   if(blueFlag){
+      blue.loop();
+      blue.volume(0);
+    }
+   if(redFlag){
+     red.loop();
+     red.volume(0);
+   }
+   if(yellowFlag){
+     yellow.loop();
+     yellow.volume(0);
+   }
   }
   
   void drawState() {
@@ -40,7 +60,7 @@ class WaitState extends State {
       text("Surprise", 100, 320);
       text("Yellow", 100, 500);
     }
-    text("22cm", 100, 680);
+    text(str(saved_size)+"cm", 100, 680);
     
     textAlign(CENTER);
     
@@ -53,9 +73,17 @@ class WaitState extends State {
 
   State decideState() {
     if (keyPressed && keyCode == RIGHT) {
-      playerWait.close() ;
+      orange.noLoop();
+      blue.noLoop();
+      red.noLoop();
+      yellow.noLoop();
+      playerWait.close();
       return new ThanksState();
     }else if(keyPressed && keyCode == LEFT){
+      orange.noLoop();
+      blue.noLoop();
+      red.noLoop();
+      yellow.noLoop();
       playerWait.close() ;
       return new HandState();
     }

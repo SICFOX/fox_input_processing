@@ -22,6 +22,10 @@ Movie red;
 Movie yellow;
 Movie orange;
 
+AudioPlayer playerCountOne;
+AudioPlayer playerCountTwo;
+AudioPlayer playerCountThree;
+
 PImage img;
 PImage logo_text;
 PImage loading_img;
@@ -39,6 +43,8 @@ boolean orangeFlag;
 boolean goState;
 
 PFont text;
+
+int saved_size;
 
 
 void setup() {
@@ -81,17 +87,9 @@ void setup() {
   loading_img = loadImage("loading.png");
   text = loadFont("MrEavesModOT-Bold-200.vlw"); 
   blue = new Movie(this, "blue.MP4");
-  blue.loop();
-  blue.volume(0);
   red = new Movie(this, "pink.MP4");
-  red.loop();
-  red.volume(0);
   yellow = new Movie(this, "yellow.MP4");
-  yellow.loop();
-  yellow.volume(0);
   orange = new Movie(this, "orange.MP4");
-  orange.loop();
-  orange.volume(0);
  
 }
 
@@ -132,10 +130,10 @@ float drawSkeleton(int userId) {
     positionY = int(convertedTorso.y);
 //    positionY = height/2;
   }
-  if(orangeFlag){ fill(245,140,25,50); }
-  if(blueFlag){fill(140,252,254,50);}
-  if(redFlag){fill(250,135,192,50);}
-  if(yellowFlag){fill(245,240,45,50);}
+  if(orangeFlag){ fill(245,140,25,90); }
+  if(blueFlag){fill(140,252,254,90);}
+  if(redFlag){fill(250,135,192,90);}
+  if(yellowFlag){fill(245,240,45,90);}
   noStroke();
   ellipse(positionX + 340,positionY + 250, diffPosition - 10, diffPosition - 10);
   
@@ -190,7 +188,6 @@ void clientEvent(Client c) {
     print(s);
 //    print(unbinary(s));
     if (int(s) == 0){
-      print("0だよ");
       orangeFlag = false;
       blueFlag = false;
       redFlag = false;
@@ -198,7 +195,6 @@ void clientEvent(Client c) {
       expressionFlag = false;
       waitFlag = true;
     }else if (int(s) == 1){
-      print("1だよ");
       orangeFlag = true;
       blueFlag = false;
       redFlag = false;
@@ -206,7 +202,6 @@ void clientEvent(Client c) {
       expressionFlag = false;
       waitFlag = true;
     }else if (int(s) == 2){
-      print("2だよ");
       orangeFlag = false;
       blueFlag = true;
       redFlag = false;
@@ -214,7 +209,6 @@ void clientEvent(Client c) {
       expressionFlag = false;
       waitFlag = true;
     }else if (int(s) == 3){
-      print("3だよ");
       orangeFlag = false;
       blueFlag = false;
       redFlag = true;

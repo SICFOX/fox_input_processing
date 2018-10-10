@@ -34,8 +34,10 @@ megapi_control = ""
 # ser2 = serial.Serial('/dev/cu.wchusbserial14110', 9600)
 
 def vision_api():
+    print("VisionAPIを呼びます")
     image_filenames = ['./img/img1.jpg']
     img_requests = []
+    print("画像を読み込みました")
 
     for imgname in image_filenames:
         with open(imgname, 'rb') as f:
@@ -51,6 +53,7 @@ def vision_api():
     data=json.dumps({"requests": img_requests}).encode(),
     params={'key': 'AIzaSyCYzlittDbDrELqOMGn77-LYLiuplMnvgA'},
     headers={'Content-Type': 'application/json'})
+    print("APIから値が帰ってきました。")
 
     if not image_filenames:
         print("Please specify API key and image file properly. $ python visionAPI.py image.jpg")
@@ -60,6 +63,7 @@ def vision_api():
     if not response.json()['responses'][0]:
         arduino_input[0] = str(random.randint(0,3))
         #print(0)
+    print("jsonを解析します")
 
     if response.json()['responses'][0]:
         a = response.json()['responses'][0]['faceAnnotations'][0]['joyLikelihood']
@@ -182,7 +186,7 @@ if __name__ == '__main__':
                         cotton_size_str = data.decode()  #Data input
                         # print(cotton_size_str)
                         cotton_size = int(cotton_size_str)
-                        print(cotton_size + "cm")
+                        print(str(cotton_size) + "cm")
 
                         size_adjustment(cotton_size)
 
