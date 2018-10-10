@@ -10,7 +10,6 @@ class HandState extends State {
   int deg;
   int countdown;
   int exception;
-  int saved_size;
   boolean nextState;
 
 

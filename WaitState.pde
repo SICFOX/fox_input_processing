@@ -60,7 +60,7 @@ class WaitState extends State {
       text("Surprise", 100, 320);
       text("Yellow", 100, 500);
     }
-    text("22cm", 100, 680);
+    text(str(saved_size)+"cm", 100, 680);
     
     textAlign(CENTER);
     

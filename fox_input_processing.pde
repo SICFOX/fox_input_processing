@@ -44,6 +44,8 @@ boolean goState;
 
 PFont text;
 
+int saved_size;
+
 
 void setup() {
   client = new Client(this, "127.0.0.1", 5555);
