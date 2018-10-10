@@ -130,10 +130,10 @@ float drawSkeleton(int userId) {
     positionY = int(convertedTorso.y);
 //    positionY = height/2;
   }
-  if(orangeFlag){ fill(245,140,25,80); }
-  if(blueFlag){fill(140,252,254,80);}
-  if(redFlag){fill(250,135,192,80);}
-  if(yellowFlag){fill(245,240,45,80);}
+  if(orangeFlag){ fill(245,140,25,90); }
+  if(blueFlag){fill(140,252,254,90);}
+  if(redFlag){fill(250,135,192,90);}
+  if(yellowFlag){fill(245,240,45,90);}
   noStroke();
   ellipse(positionX + 340,positionY + 250, diffPosition - 10, diffPosition - 10);
   
