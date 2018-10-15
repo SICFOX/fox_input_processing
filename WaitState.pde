@@ -8,24 +8,24 @@ class WaitState extends State {
    blue.noLoop();
    red.noLoop();
    yellow.noLoop();
-//   if(orangeFlag){
-//     orange.loop();
-//     orange.volume(0);
-//   }
-//   if(blueFlag){
-//      blue.loop();
-//      blue.volume(0);
-//    }
-//   if(redFlag){
-//     red.loop();
-//     red.volume(0);
-//   }
-//   if(yellowFlag){
-//     yellow.loop();
-//     yellow.volume(0);
-//   }
-   yellow.loop();
-   yellow.volume(0);
+   if(orangeFlag){
+     orange.loop();
+     orange.volume(0);
+   }
+   if(blueFlag){
+      blue.loop();
+      blue.volume(0);
+    }
+   if(redFlag){
+     red.loop();
+     red.volume(0);
+   }
+   if(yellowFlag){
+     yellow.loop();
+     yellow.volume(0);
+   }
+//   yellow.loop();
+//   yellow.volume(0);
   }
   
   void drawState() {
@@ -49,21 +49,21 @@ class WaitState extends State {
     text("The size is ", 100, 600);
     
     textFont(text, 80);  
-//    if (orangeFlag){
-//      text("Joy", 100, 320);
-//      text("Orange", 100, 500);
-//    }else if (blueFlag){
-//      text("Sorrow", 100, 320);
-//      text("Blue", 100, 500);
-//    }else if (redFlag){
-//      text("Anger", 100, 320);
-//      text("Red", 100, 500);
-//    }else if (yellowFlag){
-//      text("Surprise", 100, 320);
-//      text("Yellow", 100, 500);
-//    }
-    text("Surprise", 100, 320);
-    text("Yellow", 100, 500);
+    if (orangeFlag){
+      text("Joy", 100, 320);
+      text("Orange", 100, 500);
+    }else if (blueFlag){
+      text("Sorrow", 100, 320);
+      text("Blue", 100, 500);
+    }else if (redFlag){
+      text("Anger", 100, 320);
+      text("Red", 100, 500);
+    }else if (yellowFlag){
+      text("Surprise", 100, 320);
+      text("Yellow", 100, 500);
+    }
+//    text("Surprise", 100, 320);
+//    text("Yellow", 100, 500);
     text(str(saved_size)+"cm", 100, 680);
     
     textAlign(CENTER);

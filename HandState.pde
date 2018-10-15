@@ -143,6 +143,13 @@ class HandState extends State {
             rect(0,300, 300, 100);
             rect(0,540, 310, 200);
             fill(255);
+            if(cm_diff > 50){
+              saved_size = 50;
+            }else if (cm_diff < 15){
+              saved_size = 15;
+            }else{
+              saved_size = cm_diff;
+            }
             saved_size = cm_diff;
             textFont(text, 120);  
             text(str(saved_size)+"cm",172,420 );
