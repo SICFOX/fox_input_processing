@@ -1,7 +1,10 @@
 class WaitState extends State {
   AudioPlayer playerWait;
+  int baseTime;
+  boolean nextState;
   
   WaitState() {
+   baseTime = millis();
    playerWait = minim.loadFile("audio/06wait.mp3");
    waitFlag = true;
    orange.noLoop();
@@ -73,6 +76,11 @@ class WaitState extends State {
       client.write(s);
       waitFlag = false;
     }
+    int countdown = millis() - baseTime;
+    if(countdown > 8500){
+      playerWait.close();
+      //nextState = true;
+    }
   }
 
   State decideState() {
@@ -91,6 +99,15 @@ class WaitState extends State {
       playerWait.close() ;
       return new HandState();
     }
+    
+//    if (nextState) { 
+//      orange.noLoop();
+//      blue.noLoop();
+//      red.noLoop();
+//      yellow.noLoop();
+//      
+//      return new ThanksState(); 
+//    } 
     
     return this;
   }

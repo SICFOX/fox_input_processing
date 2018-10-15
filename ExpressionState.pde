@@ -37,7 +37,7 @@ class ExpressionState extends State {
     text("Take a picture with contdown", 600, 140);
      
     int countdown = millis() - baseTime;
-    if(countdown > 10500){
+    if(countdown > 10300){
       playerExpression.close();
     }
     if(countdown < 12000){

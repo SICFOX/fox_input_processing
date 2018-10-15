@@ -59,7 +59,7 @@ class AnalyzeState extends State {
     textAlign(CENTER);
     
     int countdown = millis() - baseTime;
-    if(countdown > 9000){
+    if(countdown > 8400){
       playerAnalyze.close();
     }
     if (countdown > 13000){
