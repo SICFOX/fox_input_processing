@@ -47,6 +47,7 @@ boolean goState;
 PFont text;
 
 int saved_size;
+int random_size;
 
 
 void setup() {
@@ -192,6 +193,7 @@ void clientEvent(Client c) {
     println("client receieved: " + s);
     print(s);
 //    print(unbinary(s));
+    random_size = int(random(15, 30)); 
     if (int(s) == 0){
       orangeFlag = false;
       blueFlag = false;

@@ -34,10 +34,10 @@ class WaitState extends State {
     
     
     playerWait.play();
-//    if(orangeFlag){image(orange, 260,140,760,640); }
-//    if(blueFlag){image(blue, 260,140,760,640);}
-//    if(redFlag){image(red, 260,140,760,640);}
-//    if(yellowFlag){image(yellow, 260,140,760,640);}
+    if(orangeFlag){image(orange, 260,140,760,640); }
+    if(blueFlag){image(blue, 260,140,760,640);}
+    if(redFlag){image(red, 260,140,760,640);}
+    if(yellowFlag){image(yellow, 260,140,760,640);}
     image(yellow, 260,140,760,640);
     image(img, 181,80,77,86);
     textFont(text, 48);  

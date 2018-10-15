@@ -42,7 +42,7 @@ class AnalyzeState extends State {
     }
 //     text("Surprise", 60, 570);
 //      text("Yellow", 420, 570);
-//    text("20cm", 740,  570);
+    text(str(random_size)+"cm", 740,  570);
     
     //fill(255,150,80);　オレンジ
     fill(255,233,100);

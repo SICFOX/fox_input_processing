@@ -25,7 +25,6 @@ class ExpressionState extends State {
   }
   
   void drawState() {
-    //3番目最初に呼ばれるクラス
     playerExpression.play();
     
     
@@ -36,12 +35,7 @@ class ExpressionState extends State {
     image(img, 181,80,77,86);
     textFont(text, 48);  
     text("Take a picture with contdown", 600, 140);
-    
-    
-    //text("Press 'h' to restart.", width * 0.5, height * 0.7);
-    
-    
-    
+     
     int countdown = millis() - baseTime;
     if(countdown > 10500){
       playerExpression.close();
