@@ -18,9 +18,11 @@ class ThanksState extends State {
 
   State decideState() {
     if (keyPressed && keyCode == RIGHT) { 
+      playerThanks.stop();
       return new TitleState();
     }
     if (keyPressed && keyCode == LEFT) { 
+      playerThanks.stop();
       return new WaitState();
     }
     return this;

@@ -27,22 +27,25 @@ class AnalyzeState extends State {
     text("The size is ", 820, 500);
     textAlign(LEFT);
     textFont(text, 80);  
-    if (orangeFlag){
-      text("Joy", 60, 570);
-      text("Orange", 420, 570);
-    }else if (blueFlag){
-      text("Sorrow",60, 570);
-      text("Blue", 420, 570);
-    }else if (redFlag){
-      text("Anger", 60, 570);
-      text("Red", 420, 570);
-    }else if (yellowFlag){
-      text("Surprise", 60, 570);
+//    if (orangeFlag){
+//      text("Joy", 60, 570);
+//      text("Orange", 420, 570);
+//    }else if (blueFlag){
+//      text("Sorrow",60, 570);
+//      text("Blue", 420, 570);
+//    }else if (redFlag){
+//      text("Anger", 60, 570);
+//      text("Red", 420, 570);
+//    }else if (yellowFlag){
+//      text("Surprise", 60, 570);
+//      text("Yellow", 420, 570);
+//    }
+     text("Surprise", 60, 570);
       text("Yellow", 420, 570);
-    }
     text("20cm", 740,  570);
     
-    fill(255,150,80);
+    //fill(255,150,80);　オレンジ
+    fill(255,233,100);
     image(smile_image,100,270,150,150);
     image(bottle_image, 740,270,150,150);
     ellipse(500,350,150,150);

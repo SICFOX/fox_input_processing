@@ -88,7 +88,7 @@ void setup() {
   logo_text = loadImage("Logo_title.png");
   loading_img = loadImage("loading.png");
   bottle_image = loadImage("bottle.png");
-  smile_image = loadImage("smile.png");
+  smile_image = loadImage("surprise.png");
   text = loadFont("MrEavesModOT-Bold-200.vlw"); 
   blue = new Movie(this, "blue.MP4");
   red = new Movie(this, "pink.MP4");
@@ -138,6 +138,7 @@ float drawSkeleton(int userId) {
   if(blueFlag){fill(140,252,254,90);}
   if(redFlag){fill(250,135,192,90);}
   if(yellowFlag){fill(245,240,45,90);}
+  fill(245,240,45,90);
   noStroke();
   ellipse(positionX + 340,positionY + 250, diffPosition - 10, diffPosition - 10);
   

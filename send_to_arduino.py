@@ -17,7 +17,7 @@ import random
 ENDPOINT_URL = 'https://vision.googleapis.com/v1/images:annotate'
 
 #[color, size]
-arduino_input = [str(1), str(10)+'e']
+arduino_input = [str(2), str(10)+'e']
 #[size]
 megapi_input = [str(10)]
 
@@ -27,11 +27,11 @@ cotton_size_str = 0
 arduino_control = ""
 megapi_control = ""
 
-# #Serial Port
-# #Arduino
-ser = serial.Serial('/dev/cu.usbmodem14121', 9600)
-# #MegaPi
-ser2 = serial.Serial('/dev/cu.wchusbserial14140', 9600)
+# # #Serial Port
+# # #Arduino
+# ser = serial.Serial('/dev/cu.usbmodem14121', 9600)
+# # #MegaPi
+# ser2 = serial.Serial('/dev/cu.wchusbserial14140', 9600)
 
 def vision_api():
     print("VisionAPIを呼びます")
@@ -116,20 +116,20 @@ def size_adjustment(cotton_size):
 
 def send_to_arduino(arduino_control):
     print("シリアル通信するよ！")
-    sleep(5)
-    print(arduino_control)
-    ser.write(arduino_control)
-    print("SleepNow")
-    if cotton_size >= 0 and cotton_size <= 24:
-        #small size
-       sleep(10)
-    elif cotton_size > 24 and cotton_size <= 30:
-        #midium size
-       sleep(15)
-    else:
-        #big size
-       sleep(20)
-    print("Wakeup")
+    # sleep(5)
+    # print(arduino_control)
+    # ser.write(arduino_control)
+    # print("SleepNow")
+    # if cotton_size >= 0 and cotton_size <= 24:
+    #     #small size
+    #    sleep(10)
+    # elif cotton_size > 24 and cotton_size <= 30:
+    #     #midium size
+    #    sleep(15)
+    # else:
+    #     #big size
+    #    sleep(20)
+    # print("Wakeup")
     # sleep(3)
 
 
@@ -143,15 +143,16 @@ def send_to_arduino(arduino_control):
 
 def send_to_megapi(megapi_control):
     #sleep(5)
-    delay_time = ser.readline()
-    print(delay_time)
-    if not delay_time:
-        delay_time = ser.readline()
-    else:
-        #sleep(5)
-        print(megapi_control)
-        ser2.write(megapi_control)
-    #sleep(5)
+    print("megapi")
+    # delay_time = ser.readline()
+    # print(delay_time)
+    # if not delay_time:
+    #     delay_time = ser.readline()
+    # else:
+    #     #sleep(5)
+    #     print(megapi_control)
+    #     ser2.write(megapi_control)
+    # sleep(5)
 
 
 
@@ -175,7 +176,8 @@ if __name__ == '__main__':
                     if data == b"savefaceimage":
                         # from Processing receive ImageData
                         vision_api()
-                        arduino_control = bytes(arduino_input[0] + ',' + arduino_input[1], 'utf-8')
+                        #arduino_control = bytes(arduino_input[0] + ',' + arduino_input[1], 'utf-8')
+                        arduino_control = bytes(str(2) + ',' + arduino_input[1], 'utf-8')
                         megapi_control = bytes(megapi_input[0], 'utf-8')
                         print("APIから感情を分析しました")
                         print(arduino_control)
