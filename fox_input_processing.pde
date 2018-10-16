@@ -140,7 +140,7 @@ float drawSkeleton(int userId) {
   if(orangeFlag){ fill(245,140,25,90); }
   if(blueFlag){fill(140,252,254,90);}
   if(redFlag){fill(250,135,192,90);}
-  if(yellowFlag){fill(245,240,45,90);}
+  if(yellowFlag){fill(123,239,94);}
   println(neckPositionZ);
   if(neckPositionZ < 1500){
     println("キタキタキタキタ！！");

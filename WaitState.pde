@@ -76,7 +76,7 @@ class WaitState extends State {
       waitFlag = false;
     }
     int countdown = millis() - baseTime;
-    if(countdown > 8600){
+    if(countdown > 8700){
       playerWait.close();
       //nextState = true;
     }
