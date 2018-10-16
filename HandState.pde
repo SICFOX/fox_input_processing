@@ -8,7 +8,6 @@ class HandState extends State {
   int baseTime;
   int shoot;
   int deg;
-  int countdown;
   int exception;
   boolean nextState;
 
@@ -61,6 +60,11 @@ class HandState extends State {
     text("Contdown",164, 600);
     text("here",172, 680);
     
+    int countdownStop = millis() - baseTime;
+    if(countdownStop > 8000){
+      playerHand.close();
+    }
+    
     int[] userList = context.getUsers();
     for (int i=0; i<userList.length; i++) {
       if (context.isTrackingSkeleton(userList[i])) {
@@ -71,12 +75,13 @@ class HandState extends State {
         fill(255);
         if (cm_diff > 0) {
           exception = 0;
-          countdown = millis() - baseTime - exception;
+          int countdown = millis() - baseTime - exception;
           if (countdown > 8000) {
             playerHand.close();
             playerKinect.play();
           }
           if (countdown < 14000) {
+            playerKinect.close();
             fill(29,175,241);
             noStroke();
             rect(0,300, 300, 100);
@@ -143,7 +148,13 @@ class HandState extends State {
             rect(0,300, 300, 100);
             rect(0,540, 310, 200);
             fill(255);
-            saved_size = cm_diff;
+            if(cm_diff > 50){
+              saved_size = 50;
+            }else if (cm_diff < 15){
+              saved_size = 15;
+            }else{
+              saved_size = cm_diff;
+            }
             textFont(text, 120);  
             text(str(saved_size)+"cm",172,420 );
             if (cm_diff > 50 || cm_diff < 15){
