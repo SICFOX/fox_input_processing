@@ -48,10 +48,13 @@ boolean orangeFlag;
 
 boolean goState;
 
+boolean userCheck;
+
 PFont text;
 
 int saved_size;
 int random_size;
+
 
 
 void setup() {
@@ -184,16 +187,19 @@ void onNewUser(SimpleOpenNI curContext, int userId) {
   println("onNewUser - userId: " + userId);
   println("\tstart tracking skeleton");
   curContext.startTrackingSkeleton(userId);
+  userCheck = true;
 }
 
 void onLostUser(SimpleOpenNI curContext, int userId)
 {
   println("onLostUser - userId: " + userId);
   curContext.startTrackingSkeleton(userId);
+  userCheck = false;
 }
 void onVisibleUser(SimpleOpenNI curkinect, int userId)
 {
 //  println("onVisibleUser - userId: " + userId);
+  userCheck = true;
 }
 
 //サーバーからデータを受け取るときに呼ばれるコールバック関数
@@ -202,7 +208,6 @@ void clientEvent(Client c) {
   if (s != null) {
     println("client receieved: " + s);
     print(s);
-//    print(unbinary(s));
     random_size = int(random(15, 30));
     if (int(s) == 0){
       orangeFlag = false;

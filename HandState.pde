@@ -76,6 +76,10 @@ class HandState extends State {
         if (cm_diff > 0) {
           exception = 0;
           int countdown = millis() - baseTime - exception;
+          if (userCheck == false){
+            countdown = 0;
+            exception = millis();
+          }
           if (countdown > 8000) {
             playerHand.close();
             playerKinect.play();
@@ -217,7 +221,7 @@ class HandState extends State {
         }
       } else {
         exception = millis();
-        print(exception);
+        print("exception:" + str(exception));
       }
       
 

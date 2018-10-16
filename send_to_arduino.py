@@ -27,11 +27,11 @@ cotton_size_str = 0
 arduino_control = ""
 megapi_control = ""
 
-# # #Serial Port
-# #Arduino
-ser = serial.Serial('/dev/cu.usbmodem14111', 9600)
-# #MegaPi
-ser2 = serial.Serial('/dev/cu.wchusbserial14140', 9600)
+# # # #Serial Port
+# # #Arduino
+# ser = serial.Serial('/dev/cu.usbmodem14111', 9600)
+# # #MegaPi
+# ser2 = serial.Serial('/dev/cu.wchusbserial14140', 9600)
 
 def vision_api():
     print("VisionAPIを呼びます")
@@ -62,7 +62,7 @@ def vision_api():
             print(response.text)
     if not response.json()['responses'][0]:
         print("顔検出できませんでした。")
-        arduino_input[0] = str(random.randint(0,3))
+        arduino_input[0] = str(random.choice([0, 1, 2, 3]))
         #print(0)
     print("jsonを解析します")
 
@@ -82,7 +82,7 @@ def vision_api():
                 out3 = [key for key, value in emotion.items() if value == 'POSSIBLE']
                 if not out3:
                     print("アンニュイな顔です。")
-                    arduino_input[0] = str(random.randint(0,3))
+                    arduino_input[0] = str(random.choice([0, 1, 2, 3]))
                     #print(0)
                 else:
                     arduino_input[0] = str(out3[0])
@@ -119,20 +119,20 @@ def size_adjustment(cotton_size):
 def send_to_arduino(arduino_control,megapi_control):
     print("シリアル通信するよ！")
     # sleep(5)
-    print(arduino_control)
-    ser.write(arduino_control)
-    print("SleepNow")
-    if cotton_size >= 0 and cotton_size <= 24:
-        #small size
-       sleep(10)
-    elif cotton_size > 24 and cotton_size <= 30:
-        #midium size
-       sleep(15)
-    else:
-        #big size
-       sleep(20)
-    ser2.write(megapi_control)
-    sleep(5)
+    # print(arduino_control)
+    # ser.write(arduino_control)
+    # print("SleepNow")
+    # if cotton_size >= 0 and cotton_size <= 24:
+    #     #small size
+    #    sleep(10)
+    # elif cotton_size > 24 and cotton_size <= 30:
+    #     #midium size
+    #    sleep(15)
+    # else:
+    #     #big size
+    #    sleep(20)
+    # ser2.write(megapi_control)
+    # sleep(5)
 
 if __name__ == '__main__':
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
