@@ -28,10 +28,10 @@ arduino_control = ""
 megapi_control = ""
 
 # # #Serial Port
-# # #Arduino
-# ser = serial.Serial('/dev/cu.usbmodem14121', 9600)
-# # #MegaPi
-# ser2 = serial.Serial('/dev/cu.wchusbserial14140', 9600)
+# #Arduino
+ser = serial.Serial('/dev/cu.usbmodem14111', 9600)
+# #MegaPi
+ser2 = serial.Serial('/dev/cu.wchusbserial14140', 9600)
 
 def vision_api():
     print("VisionAPIを呼びます")
@@ -117,24 +117,24 @@ def size_adjustment(cotton_size):
 def send_to_arduino(arduino_control):
     print("シリアル通信するよ！")
     # sleep(5)
-    # print(arduino_control)
-    # ser.write(arduino_control)
-    # print("SleepNow")
-    # if cotton_size >= 0 and cotton_size <= 24:
-    #     #small size
-    #    sleep(10)
-    # elif cotton_size > 24 and cotton_size <= 30:
-    #     #midium size
-    #    sleep(15)
-    # else:
-    #     #big size
-    #    sleep(20)
-    # print("Wakeup")
-    # sleep(3)
-
-
+    print(arduino_control)
+    ser.write(arduino_control)
+    print("SleepNow")
+    if cotton_size >= 0 and cotton_size <= 24:
+        #small size
+       sleep(10)
+    elif cotton_size > 24 and cotton_size <= 30:
+        #midium size
+       sleep(15)
+    else:
+        #big size
+       sleep(20)
+    print("Wakeup")
+    sleep(3)
+#
+#
 #    delay_time = ser.read(3)
-##    if not delay_time:
+# #    if not delay_time:
 #        delay_time = ser.read(3)
 #    else:
 #        print(megapi_control)
@@ -144,15 +144,15 @@ def send_to_arduino(arduino_control):
 def send_to_megapi(megapi_control):
     #sleep(5)
     print("megapi")
-    # delay_time = ser.readline()
-    # print(delay_time)
-    # if not delay_time:
-    #     delay_time = ser.readline()
-    # else:
-    #     #sleep(5)
-    #     print(megapi_control)
-    #     ser2.write(megapi_control)
-    # sleep(5)
+    delay_time = ser.readline()
+    print(delay_time)
+    if not delay_time:
+        delay_time = ser.readline()
+    else:
+        #sleep(5)
+        print(megapi_control)
+        ser2.write(megapi_control)
+    sleep(5)
 
 
 

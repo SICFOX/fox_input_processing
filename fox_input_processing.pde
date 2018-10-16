@@ -92,7 +92,7 @@ void setup() {
   img = loadImage("Fox_logo.png");
   logo_text = loadImage("Logo_title.png");
   loading_img = loadImage("loading.png");
-  bottle_image = loadImage("bottle.png");
+  bottle_image = loadImage("cottoncandy_size.png");
   joy_image = loadImage("joy.png");
   smile_image = loadImage("surprise.png");
   anger_image = loadImage("anger.png");
@@ -140,7 +140,7 @@ float drawSkeleton(int userId) {
   if(orangeFlag){ fill(245,140,25,90); }
   if(blueFlag){fill(140,252,254,90);}
   if(redFlag){fill(250,135,192,90);}
-  if(yellowFlag){fill(123,239,94);}
+  if(yellowFlag){fill(123,239,94,90);}
   println(neckPositionZ);
   if(neckPositionZ < 1500){
     println("キタキタキタキタ！！");
