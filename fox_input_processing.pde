@@ -137,32 +137,25 @@ float drawSkeleton(int userId) {
   int diffPosition = int(convertedRightHand.x - convertedLeftHand.x);
 
   int neckPositionZ = int(convertedNeck.z);
+  int neckPositionX = int(convertedNeck.x);
+  
   if(orangeFlag){ fill(245,140,25,90); }
   if(blueFlag){fill(140,252,254,90);}
   if(redFlag){fill(250,135,192,90);}
   if(yellowFlag){fill(123,239,94,90);}
-  println(neckPositionZ);
-  if(neckPositionZ < 1500){
-    println("キタキタキタキタ！！");
-    noStroke();
-    ellipse(positionX + 340,positionY + 250, diffPosition - 10, diffPosition - 10);
-    diff = rightHandPos.x - leftHandPos.x;
+  println("z軸:" + str(neckPositionZ));
+  println("x軸:" + str(neckPositionX));
+  if(neckPositionZ > 1600 && neckPositionZ < 1800 ){
+       println("Z軸の条件を満たしました");
+      if(neckPositionX > 100 && neckPositionX < 500){
+       println("X軸の条件を満たしました");
+      noStroke();
+      ellipse(positionX + 340,positionY + 250, diffPosition - 10, diffPosition - 10);
+      diff = rightHandPos.x - leftHandPos.x;
+    }
   }
-  
-  
-  //  if(diffPosition < 50){
-//    diffPosition = 60;
-//    positionX = int(convertedNeck.x);
-//    positionY = int(convertedNeck.y);
-////    positionY = height/2;
-//  }
-  
-
-
 
   //print(SimpleOpenNI.SKEL_HEAD);
-
-
 //  context.drawLimb(userId, SimpleOpenNI.SKEL_HEAD, SimpleOpenNI.SKEL_NECK);
 //
 //  context.drawLimb(userId, SimpleOpenNI.SKEL_NECK, SimpleOpenNI.SKEL_LEFT_SHOULDER);

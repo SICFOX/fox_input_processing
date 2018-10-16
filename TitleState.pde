@@ -20,12 +20,13 @@ class TitleState extends State {
     if (keyPressed && keyCode == RIGHT) { 
       return new IntroState();
     }
-//    if (keyPressed && keyCode == LEFT) { 
+    if (keyPressed && keyCode == LEFT) { 
+       return new ThanksState();
 //      int countdown = millis() - baseTime;
 //      if(countdown > 5000){
 //        nextState = true;
 //      }
-//    }
+    }
 //    if (nextState) { 
 //      return new IntroState(); 
 //    } 

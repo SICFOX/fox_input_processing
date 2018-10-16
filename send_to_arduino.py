@@ -61,6 +61,7 @@ def vision_api():
         if response.status_code != 200 or response.json().get('error'):
             print(response.text)
     if not response.json()['responses'][0]:
+        print("顔検出できませんでした。")
         arduino_input[0] = str(random.randint(0,3))
         #print(0)
     print("jsonを解析します")
@@ -80,6 +81,7 @@ def vision_api():
             if not out2:
                 out3 = [key for key, value in emotion.items() if value == 'POSSIBLE']
                 if not out3:
+                    print("アンニュイな顔です。")
                     arduino_input[0] = str(random.randint(0,3))
                     #print(0)
                 else:
@@ -114,7 +116,7 @@ def size_adjustment(cotton_size):
         megapi_input[0] = str('4')
 
 
-def send_to_arduino(arduino_control):
+def send_to_arduino(arduino_control,megapi_control):
     print("シリアル通信するよ！")
     # sleep(5)
     print(arduino_control)
@@ -129,33 +131,8 @@ def send_to_arduino(arduino_control):
     else:
         #big size
        sleep(20)
-    print("Wakeup")
-    sleep(3)
-#
-#
-#    delay_time = ser.read(3)
-# #    if not delay_time:
-#        delay_time = ser.read(3)
-#    else:
-#        print(megapi_control)
-#        ser2.write(megapi_control)
-#    sleep(5)
-
-def send_to_megapi(megapi_control):
-    #sleep(5)
-    print("megapi")
-    delay_time = ser.readline()
-    print(delay_time)
-    if not delay_time:
-        delay_time = ser.readline()
-    else:
-        #sleep(5)
-        print(megapi_control)
-        ser2.write(megapi_control)
+    ser2.write(megapi_control)
     sleep(5)
-
-
-
 
 if __name__ == '__main__':
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -176,8 +153,8 @@ if __name__ == '__main__':
                     if data == b"savefaceimage":
                         # from Processing receive ImageData
                         vision_api()
-                        #arduino_control = bytes(arduino_input[0] + ',' + arduino_input[1], 'utf-8')
-                        arduino_control = bytes(str(2) + ',' + arduino_input[1], 'utf-8')
+                        arduino_control = bytes(arduino_input[0] + ',' + arduino_input[1], 'utf-8')
+                        #arduino_control = bytes(str(2) + ',' + arduino_input[1], 'utf-8')
                         megapi_control = bytes(megapi_input[0], 'utf-8')
                         print("APIから感情を分析しました")
                         print(arduino_control)
@@ -191,13 +168,9 @@ if __name__ == '__main__':
 
                     elif data == b"senddata":
                         # Arduinoにシリアル通信
-                        send_to_arduino(arduino_control)
+                        send_to_arduino(arduino_control,megapi_control)
                         print("Arduinoにデータを送信しました")
                         print(arduino_control)
-                        #print("SleepNow")
-                        #sleep(20)
-                        #print("Wakeup")
-                        send_to_megapi(megapi_control)
                         print("Megapiにデータを送信しました")
                         print(megapi_control)
                         conn.send("5".encode('utf-8'))

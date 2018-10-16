@@ -59,7 +59,7 @@ class AnalyzeState extends State {
     }
     text(str(random_size)+"cm", 740,  570); 
     
-    image(bottle_image, 740,270,150,150);
+    image(bottle_image, 770,270,90,180);
     
     textAlign(CENTER);
     
