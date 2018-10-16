@@ -31,7 +31,11 @@ PImage logo_text;
 PImage loading_img;
 PImage expression_img;
 PImage bottle_image;
+PImage joy_image;
 PImage smile_image;
+PImage anger_image;
+PImage sorrow_image;
+float diff;
 
 boolean expressionFlag;
 boolean handFlag;
@@ -47,6 +51,7 @@ boolean goState;
 PFont text;
 
 int saved_size;
+int random_size;
 
 
 void setup() {
@@ -69,7 +74,7 @@ void setup() {
 
   context = new SimpleOpenNI(this);
   if (context.isInit() == false) {
-    println("Can't init SimpleOpenNI, maybe the camera is not connected!"); 
+    println("Can't init SimpleOpenNI, maybe the camera is not connected!");
     exit();
     return;
   }
@@ -83,18 +88,21 @@ void setup() {
   strokeWeight(3);
   noStroke();
   smooth();
-  
+
   img = loadImage("Fox_logo.png");
   logo_text = loadImage("Logo_title.png");
   loading_img = loadImage("loading.png");
   bottle_image = loadImage("bottle.png");
+  joy_image = loadImage("joy.png");
   smile_image = loadImage("surprise.png");
-  text = loadFont("MrEavesModOT-Bold-200.vlw"); 
+  anger_image = loadImage("anger.png");
+  sorrow_image = loadImage("sorrow.png");
+  text = loadFont("MrEavesModOT-Bold-200.vlw");
   blue = new Movie(this, "blue.MP4");
   red = new Movie(this, "pink.MP4");
   yellow = new Movie(this, "yellow.MP4");
   orange = new Movie(this, "orange.MP4");
- 
+
 }
 
 void draw() {
@@ -107,49 +115,51 @@ void draw() {
 float drawSkeleton(int userId) {
   PVector rightHandPos = new PVector();
   PVector leftHandPos = new PVector();
-  PVector torsoPos = new PVector();
+  PVector neckPos = new PVector();
   context.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_RIGHT_HAND, rightHandPos);
   context.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_LEFT_HAND, leftHandPos);
-  context.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_TORSO, torsoPos);
-  float diff = rightHandPos.x - leftHandPos.x;
+  context.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_HEAD, neckPos);
   
-  
+
+
   PVector convertedRightHand = new PVector();
   context.convertRealWorldToProjective(rightHandPos, convertedRightHand );
 
   PVector convertedLeftHand = new PVector();
   context.convertRealWorldToProjective(leftHandPos, convertedLeftHand );
-  
-  PVector convertedTorso = new PVector();
-  context.convertRealWorldToProjective(torsoPos, convertedTorso );
 
-   
+  PVector convertedNeck = new PVector();
+  context.convertRealWorldToProjective(neckPos, convertedNeck );
+
+
   int positionX = int((convertedRightHand.x + convertedLeftHand.x)/2);
   int positionY = int((convertedRightHand.y + convertedLeftHand.y)/2);
   int diffPosition = int(convertedRightHand.x - convertedLeftHand.x);
-  
-  int torsoPositionZ = int(convertedTorso.z);
-  println(torsoPositionZ);
-  
-  if(diffPosition < 50){
-    diffPosition = 60;
-    positionX = int(convertedTorso.x);
-    positionY = int(convertedTorso.y);
-//    positionY = height/2;
-  }
+
+  int neckPositionZ = int(convertedNeck.z);
   if(orangeFlag){ fill(245,140,25,90); }
   if(blueFlag){fill(140,252,254,90);}
   if(redFlag){fill(250,135,192,90);}
   if(yellowFlag){fill(245,240,45,90);}
-  noStroke();
-  ellipse(positionX + 340,positionY + 250, diffPosition - 10, diffPosition - 10);
-  
-  if(torsoPositionZ < 700){
+  println(neckPositionZ);
+  if(neckPositionZ < 1500){
     println("キタキタキタキタ！！");
+    noStroke();
+    ellipse(positionX + 340,positionY + 250, diffPosition - 10, diffPosition - 10);
+    diff = rightHandPos.x - leftHandPos.x;
   }
   
   
+  //  if(diffPosition < 50){
+//    diffPosition = 60;
+//    positionX = int(convertedNeck.x);
+//    positionY = int(convertedNeck.y);
+////    positionY = height/2;
+//  }
   
+
+
+
   //print(SimpleOpenNI.SKEL_HEAD);
 
 
@@ -173,7 +183,7 @@ float drawSkeleton(int userId) {
 //  context.drawLimb(userId, SimpleOpenNI.SKEL_TORSO, SimpleOpenNI.SKEL_RIGHT_HIP);
 //  context.drawLimb(userId, SimpleOpenNI.SKEL_RIGHT_HIP, SimpleOpenNI.SKEL_RIGHT_KNEE);
 //  context.drawLimb(userId, SimpleOpenNI.SKEL_RIGHT_KNEE, SimpleOpenNI.SKEL_RIGHT_FOOT);
-  
+
   return diff;
 }
 
@@ -200,6 +210,7 @@ void clientEvent(Client c) {
     println("client receieved: " + s);
     print(s);
 //    print(unbinary(s));
+    random_size = int(random(15, 30));
     if (int(s) == 0){
       orangeFlag = false;
       blueFlag = false;
@@ -245,12 +256,12 @@ void movieEvent(Movie m) {
      m.read();
 }
 
-void rotateImage( int x, int y, PImage img, float deg ){ 
+void rotateImage( int x, int y, PImage img, float deg ){
      pushMatrix();
      translate( x + img.width/2, y + img.height/2 );
-     rotate(radians( deg )); 
-     imageMode(CENTER); 
+     rotate(radians( deg ));
+     imageMode(CENTER);
      image( img, 0, 0,126,132 );
-     imageMode(CORNER); 
-     popMatrix(); 
+     imageMode(CORNER);
+     popMatrix();
 }

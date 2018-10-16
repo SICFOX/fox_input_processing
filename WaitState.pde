@@ -1,7 +1,10 @@
 class WaitState extends State {
   AudioPlayer playerWait;
+  int baseTime;
+  boolean nextState;
   
   WaitState() {
+   baseTime = millis();
    playerWait = minim.loadFile("audio/06wait.mp3");
    waitFlag = true;
    orange.noLoop();
@@ -34,11 +37,10 @@ class WaitState extends State {
     
     
     playerWait.play();
-//    if(orangeFlag){image(orange, 260,140,760,640); }
-//    if(blueFlag){image(blue, 260,140,760,640);}
-//    if(redFlag){image(red, 260,140,760,640);}
-//    if(yellowFlag){image(yellow, 260,140,760,640);}
-    image(yellow, 260,140,760,640);
+    if(orangeFlag){image(orange, 260,140,760,640); }
+    if(blueFlag){image(blue, 260,140,760,640);}
+    if(redFlag){image(red, 260,140,760,640);}
+    if(yellowFlag){image(yellow, 260,140,760,640);}
     image(img, 181,80,77,86);
     textFont(text, 48);  
     text("Please wait a minute", 600, 140);
@@ -73,6 +75,11 @@ class WaitState extends State {
       client.write(s);
       waitFlag = false;
     }
+    int countdown = millis() - baseTime;
+    if(countdown > 8500){
+      playerWait.close();
+      //nextState = true;
+    }
   }
 
   State decideState() {
@@ -91,6 +98,15 @@ class WaitState extends State {
       playerWait.close() ;
       return new HandState();
     }
+    
+//    if (nextState) { 
+//      orange.noLoop();
+//      blue.noLoop();
+//      red.noLoop();
+//      yellow.noLoop();
+//      
+//      return new ThanksState(); 
+//    } 
     
     return this;
   }

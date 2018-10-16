@@ -28,33 +28,42 @@ class AnalyzeState extends State {
     textAlign(LEFT);
     textFont(text, 80);  
     if (orangeFlag){
+      fill(255,150,80);
+      ellipse(500,350,150,150);
+      fill(255);
+      image(joy_image,100,270,150,150);
       text("Joy", 60, 570);
       text("Orange", 420, 570);
     }else if (blueFlag){
+      fill(137,252,254);
+      ellipse(500,350,150,150);
+      fill(255);
+      image(sorrow_image,100,270,150,150);
       text("Sorrow",60, 570);
       text("Blue", 420, 570);
     }else if (redFlag){
+      fill(250,135,192);
+      ellipse(500,350,150,150);
+      fill(255);
+      image(anger_image,100,270,150,150);
       text("Anger", 60, 570);
       text("Red", 420, 570);
     }else if (yellowFlag){
+      fill(255,233,100);
+      ellipse(500,350,150,150);
+      fill(255);
+      image(smile_image,100,270,150,150);
       text("Surprise", 60, 570);
       text("Yellow", 420, 570);
     }
-//     text("Surprise", 60, 570);
-//      text("Yellow", 420, 570);
-//    text("20cm", 740,  570);
+    text(str(random_size)+"cm", 740,  570); 
     
-    //fill(255,150,80);　オレンジ
-    fill(255,233,100);
-    image(smile_image,100,270,150,150);
     image(bottle_image, 740,270,150,150);
-    ellipse(500,350,150,150);
-    fill(255);
     
     textAlign(CENTER);
     
     int countdown = millis() - baseTime;
-    if(countdown > 9000){
+    if(countdown > 8400){
       playerAnalyze.close();
     }
     if (countdown > 13000){
