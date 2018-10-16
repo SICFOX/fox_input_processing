@@ -100,7 +100,7 @@ void setup() {
   text = loadFont("MrEavesModOT-Bold-200.vlw");
   blue = new Movie(this, "blue.MP4");
   red = new Movie(this, "pink.MP4");
-  yellow = new Movie(this, "yellow.MP4");
+  yellow = new Movie(this, "green.MP4");
   orange = new Movie(this, "orange.MP4");
 
 }

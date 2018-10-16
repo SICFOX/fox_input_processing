@@ -49,12 +49,13 @@ class AnalyzeState extends State {
       text("Anger", 60, 570);
       text("Red", 420, 570);
     }else if (yellowFlag){
-      fill(255,233,100);
+//      fill(255,233,100);
+      fill(123,239,94);
       ellipse(500,350,150,150);
       fill(255);
       image(smile_image,100,270,150,150);
       text("Surprise", 60, 570);
-      text("Yellow", 420, 570);
+      text("Green", 420, 570);
     }
     text(str(random_size)+"cm", 740,  570); 
     

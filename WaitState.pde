@@ -62,7 +62,7 @@ class WaitState extends State {
       text("Red", 100, 500);
     }else if (yellowFlag){
       text("Surprise", 100, 320);
-      text("Yellow", 100, 500);
+      text("Green", 100, 500);
     }
 //    text("Surprise", 100, 320);
 //    text("Yellow", 100, 500);
